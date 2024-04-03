@@ -1,0 +1,26 @@
+package myshop12.com.model2.mvc.purchase.repository;
+
+
+import myshop12.com.model2.mvc.common.domain.Search;
+import myshop12.com.model2.mvc.purchase.domain.Purchase;
+
+import java.util.Map;
+
+public interface PurchaseDao {
+
+        public void addPurchase(Purchase purchase) throws Exception;
+
+        public Purchase getPurchase(int tranNo) throws Exception;
+        public Purchase getPurchaseProdNo(int prodNo) throws Exception;
+
+        public Map<String, Object> getPurchaseList(Map<String, Object> map) throws Exception;
+
+        public Map<String, Object> getSaleList(Search search) throws Exception;
+
+        public Purchase updatePurchase(Purchase purchase) throws Exception;
+
+        public void updateTranCode(Purchase purchase) throws Exception;
+
+
+
+}

@@ -1,0 +1,22 @@
+package myshop12.com.model2.mvc;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.core.io.ClassPathResource;
+
+@Configuration
+public class PropertySourcesConfig {
+
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer(){
+        PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
+        configurer.setLocations(
+                new ClassPathResource("config/common.properties"),
+                new ClassPathResource("config/daum.properties"),
+                new ClassPathResource("config/jdbc.properties"),
+                new ClassPathResource("config/log4j.properties")
+        );
+        return configurer;
+    }
+}

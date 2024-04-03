@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="ProductMapper">
+
+	<resultMap id="productSelectMap" type="product">
+		<result property="prodNo" 			column="prod_no" 		jdbcType="NUMERIC" />
+		<result property="prodName" 				column="prod_name" 					jdbcType="VARCHAR" />
+		<result property="prodDetail" 				column="prod_detail" 					jdbcType="VARCHAR" />
+		<result property="manuDate"	column="manufacture_day" 	jdbcType="VARCHAR" />
+		<result property="price" 	column="price" 		jdbcType="NUMERIC" />
+		<result property="fileName" 			column="image_file" 			jdbcType="VARCHAR"/>
+		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+		<result property="proTranCode" 		column="tran_status_code" 			jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<!-- SQL : INSERT 제너레이트 키로 도메인에 "자동"할당 해준다. 나는 도메인 건드린 적 없지만 속성이 변경되어있음-->
+	<insert 	id="insertProduct"		parameterType="product" useGeneratedKeys="true" keyProperty="prodNo" keyColumn="prod_no">
+	 	INSERT
+		INTO product (prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date)
+		VALUES	 (seq_product_prod_no.nextval,#{prodName},#{prodDetail},#{manuDate},#{price},#{fileName},sysdate)
+	 </insert>
+	 
+	 <!-- SQL : SELECT ONE -->
+	 <select 	id="findProduct"	parameterType="int"	resultMap="productSelectMap">
+		SELECT
+			prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date
+		FROM product
+		WHERE prod_no = #{value}
+		ORDER BY prod_no
+	 </select>
+	 
+	 <!-- SQL : UPDATE -->
+	 <update	id="updateProduct"	parameterType="product" >
+	   	UPDATE PRODUCT
+	   	<set>
+	   		prod_name 	= #{prodName},
+			prod_detail	= #{prodDetail},
+			manufacture_day = #{manuDate},
+			price = #{price},
+			image_file = #{fileName},
+			reg_date = sysdate
+	   	</set>
+	   	WHERE prod_no = #{prodNo}
+	 </update>
+
+	<!-- SQL : SELECT LIST -->
+	<select id="getProductList" parameterType="search" resultMap="productSelectMap">
+		SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,
+		       COALESCE(tran_status_code, 'a') AS tran_status_code
+		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
+		FROM ( SELECT p.prod_no,
+		p.prod_name,
+		p.prod_detail,
+		p.manufacture_day,
+		p.price,
+		p.image_file,
+		p.reg_date,
+		t.tran_status_code
+		FROM product p
+		LEFT JOIN transaction t ON p.prod_no=t.prod_no
+		<if test="searchCondition != null">
+			<where>
+				<if test="searchCondition == 0 and searchKeyword !='' ">
+					p.prod_no LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					p.prod_name LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					p.price LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchBoundFirst != 0 and searchBoundEnd != 0">
+					AND p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
+				</if>
+			</where>
+		</if>
+		<if test="searchType != null">
+			<if test="searchType == 1">
+				ORDER BY p.prod_no
+			</if>
+			<if test="searchType == 2">
+				ORDER BY p.price desc
+			</if>
+			<if test="searchType == 3">
+				ORDER BY p.price asc
+			</if>
+		</if>
+		<if test="searchType == null or searchType ==0">
+			ORDER BY p.prod_no
+		</if>
+		) inner_table
+
+		WHERE ROWNUM <![CDATA[<=]]> #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum}
+
+		<if test="searchType != null">
+			<if test="searchType == 1">
+				ORDER BY prod_no
+			</if>
+			<if test="searchType == 2">
+				ORDER BY price desc
+			</if>
+			<if test="searchType == 3">
+				ORDER BY price asc
+			</if>
+		</if>
+		<if test="searchType == null or searchType ==0">
+			ORDER BY prod_no
+		</if>
+
+	</select>
+
+	 	<!--  위 두번째 subQuery 의
+	 			WHERE ROWNUM &lt;= #{endRowNum} ) 는
+	 			WHERE ROWNUM <= #{endRowNum} ) 의미이며..
+	 			< 는 keyword 로 &lt; 를	사용.
+
+	 			<![CDATA[  ~~~  ]]> 를 이용하여 아래와 같이 사용  할 수 있다.
+	 			CDATA ==> Character Data 의 의미 Java 에서 \n 같은 특수문자 처리
+
+				WHERE ROWNUM <![CDATA[ <=]]> #{endRowNum} )
+		-->
+
+	<!-- SQL : SELECT ROW Count -->
+	<select id="getTotalCount" parameterType="search" resultType="int">
+		SELECT COUNT(*)
+		FROM ( SELECT p.prod_no,
+		p.prod_name,
+		p.prod_detail,
+		p.manufacture_day,
+		p.price,
+		p.image_file,
+		p.reg_date,
+		t.tran_status_code
+		FROM product p
+		LEFT JOIN transaction t ON p.prod_no=t.prod_no
+		<if test="searchCondition != null">
+			<where>
+				<if test="searchCondition == 0 and searchKeyword !='' ">
+					p.prod_no LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchCondition == 1 and searchKeyword !='' ">
+					p.prod_name LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchCondition == 2 and searchKeyword !='' ">
+					p.price LIKE CONCAT(#{searchKeyword},'%')
+				</if>
+				<if test="searchBoundFirst != 0 and searchBoundEnd != 0">
+					AND p.price BETWEEN #{searchBoundFirst} AND #{searchBoundEnd}
+				</if>
+			</where>
+		</if>
+		) count_table
+		/* end of FROM */
+	</select>
+
+
+</mapper>

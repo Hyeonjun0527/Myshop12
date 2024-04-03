@@ -1,0 +1,112 @@
+
+/* 이미지 보더라인 삭제 */
+IMG {  border-style: none}
+@font-face {
+	font-family: 'SANJUGotgam';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/SANJUGotgam.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* 스크롤바 정의 */
+BODY {
+scrollbar-3dlight-color: #ffffff;
+scrollbar-highlight-color: #ffffff;
+scrollbar-face-color: #DEE7EB;
+scrollbar-arrow-color: #6F9BAA;
+scrollbar-track-color: #F7F7F7;
+scrollbar-darkshadow-color: #ffffff;
+scrollbar-shadow-color: #B8C4C5;}
+
+/* 링크 속성 */
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr; /* 한 열에 하나의 항목만 있도록 설정 */
+  grid-auto-rows: minmax(36px, auto);/*minmax(36px, auto)는 각 행의 최소 높이를 36px로 설정하고, 최대 높이는 컨텐츠에 따라 자동으로 조절되게 합니다.*/
+  gap: 10px; /* 아이템 간격 */
+}
+.item {
+	background-color: #a19999;
+	color:#000000;
+}
+.button {
+	font-family: 'SANJUGotgam';
+    text-decoration: none;
+    text-align:center;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition-property:background-color;
+    transition-duration:0.2s;
+	box-shadow: 5px 5px 5px 0 rgba(0, 0, 0, 0.15);
+	/* 수평 오프셋, 수직 오프셋, 흐림 반경, 확산 거리, 색상 */
+}
+.button:hover {
+    background-color: #0056b3;
+}
+div.item.button{
+	color:#000000;
+    display: block; /* a 태그를 블록 레벨 요소로 만듭니다. */
+    width:calc(100%); /* a 태그의 너비를 div의 100%로 설정합니다. */
+    height:calc(100%); /* a 태그의 높이를 div의 100%로 설정합니다. */
+    text-align: center; /* 텍스트를 가운데 정렬합니다. */
+    line-height: 3;
+}
+.button:hover a{
+	color:#fff;
+}
+
+
+/* 전체 텍스트 속성 */
+BODY, TABLE, TR, TD, SELECT,INPUT,DIV,SPAN,FORM,TEXTAREA
+{ font-family: "MS Gothic"; font-size: 12px; color: #333333; }
+
+/* 타이틀1 배경이미지와 텍스트 속성 */
+ .Depth01 { 
+		font-size: 14px; 
+	color: #ffffff;
+	font-weight:bold;
+	line-height: 26px;
+	text-indent: 15px;
+	background-image: url(/sample/images/left/leftMenuDep01Bg.gif);
+	background-repeat:no-repeat;
+   	}
+ 
+ 	 /* 타이틀2 배경이미지와 텍스트 속성 - 마우스 이벤트가 없을때와 기본일때.*/
+	.Depth02on { 
+	font-size: 12px; 
+	line-height: 25px;
+	color: #505050;
+	font-weight:normal;
+	text-indent: 19px;
+	background-image: url(/sample/images/left/leftMenuDep02_on.gif);
+	background-repeat:no-repeat;
+  	}
+  
+   /* 타이틀2 배경이미지와 텍스트 속성 - 마우스 이벤트가 없을때와 기본일때.*/
+	.Depth02off { 
+	 font-size: 12px; 
+	line-height: 25px;
+	color: #505050;
+	font-weight:normal;
+	text-indent: 19px;
+	background-image: url(/sample/images/left/leftMenuDep02_off.gif);
+	background-repeat:no-repeat;
+  	}
+	.DepthEnd {
+background-image: url(/sample/images/left/space_line.gif);
+line-height: 5px;
+background-repeat:no-repeat;
+	}
+	
+/* 타이틀1 배경이미지와 텍스트 속성 */	
+.layer_submenu_bg {
+	background-image:  url(/sample/images/left/menuLayerBg.gif);
+	background-position: right;
+	background-repeat: repeat;
+	text-align: center;
+}
+
+
+

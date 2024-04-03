@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+.item {
+  background-color: #f0f0f0;
+}
+.button {
+    color: #000000 !important;
+    text-decoration: none;
+    text-align:center;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition-property:background-color;
+    transition-duration:0.2s;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+.item.button a{
+	color:#000000;
+    display: block; /* a 태그를 블록 레벨 요소로 만듭니다. */
+    width:calc(100%); /* a 태그의 너비를 div의 100%로 설정합니다. */
+    height:calc(100% ); /* a 태그의 높이를 div의 100%로 설정합니다. */
+    text-align: center; /* 텍스트를 가운데 정렬합니다. */
+    line-height: 3;
+}
+
+.max-size{
+    max-width:100px !important;
+    max-height:100px !important;
+}
