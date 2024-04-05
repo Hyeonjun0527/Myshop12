@@ -29,6 +29,15 @@ public class PurchaseDaoImpl implements PurchaseDao {
     ///Methods
     public void addPurchase(Purchase purchase) throws Exception {
         purchaseMapper.addPurchase(purchase);
+        final int tranNo = purchase.getTranNo();
+        purchase.getPurchaseDetailList().forEach(purchaseDetail -> {
+            try {
+                purchaseMapper.addPurchaseDetail(purchaseDetail);
+            } catch (Exception e) {
+                // ì˜ˆì™¸ ì²˜ë¦¬ ë¡œì§
+                e.printStackTrace();
+            }
+        });
     }
 
     public Purchase getPurchase(int tranNo) throws Exception {
@@ -41,16 +50,16 @@ public class PurchaseDaoImpl implements PurchaseDao {
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
         List<Map<String,Object>> list = purchaseMapper.getPurchaseList(map);
         List<Purchase> purchaseList = null;
-        System.out.println("ÀÌ°Ô ¸®½ºÆ®"+list);
+        System.out.println("LIST :: "+list);
 
-        //¸®½ºÆ®°¡ ÀÖÀ¸¸é Ä«¿îÆ®¸¦ ±¸ÇÑ´Ù.
+
         int count = 0;
 
         if(!list.isEmpty()) {
             count = ((BigDecimal) list.get(0).get("count")).intValue();
             purchaseList = new ArrayList<Purchase>();
             for (Map<String, Object> purchaseMap : list) {
-                System.out.println("ÀÌ°Ô ¸Ê :: " + purchaseMap.get("purchase"));
+                System.out.println("purchaseMap.get(purchase) :: " + purchaseMap.get("purchase"));
                 purchaseList.add((Purchase) purchaseMap.get("purchase"));
             }
 

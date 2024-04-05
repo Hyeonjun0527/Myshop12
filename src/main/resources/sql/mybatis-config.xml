@@ -19,6 +19,7 @@
 		<typeAlias alias="product" type="myshop12.com.model2.mvc.product.domain.Product" />
 		<typeAlias alias="purchase" type="myshop12.com.model2.mvc.purchase.domain.Purchase" />
 		<typeAlias alias="search" type="myshop12.com.model2.mvc.common.domain.Search" />
+		<typeAlias alias="purchaseDetail" type="myshop12.com.model2.mvc.purchase.domain.PurchaseDetail" />
 		<typeAlias alias="map" type="java.util.Map" />
 	</typeAliases>
 

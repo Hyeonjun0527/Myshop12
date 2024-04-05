@@ -15,20 +15,21 @@
 		<result property="price" 	column="price" 		jdbcType="NUMERIC" />
 		<result property="fileName" 			column="image_file" 			jdbcType="VARCHAR"/>
 		<result property="regDate" 		column="reg_date" 			jdbcType="DATE" />
+		<result property="stockQuantity" 		column="stock_quantity" 			jdbcType="NUMERIC" />
 		<result property="proTranCode" 		column="tran_status_code" 			jdbcType="VARCHAR" />
 	</resultMap>
 	
 	<!-- SQL : INSERT 제너레이트 키로 도메인에 "자동"할당 해준다. 나는 도메인 건드린 적 없지만 속성이 변경되어있음-->
 	<insert 	id="insertProduct"		parameterType="product" useGeneratedKeys="true" keyProperty="prodNo" keyColumn="prod_no">
 	 	INSERT
-		INTO product (prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date)
-		VALUES	 (seq_product_prod_no.nextval,#{prodName},#{prodDetail},#{manuDate},#{price},#{fileName},sysdate)
+		INTO product (prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date,STOCK_QUANTITY)
+		VALUES	 (seq_product_prod_no.nextval,#{prodName},#{prodDetail},#{manuDate},#{price},#{fileName},sysdate,#{stockQuantity}
 	 </insert>
 	 
 	 <!-- SQL : SELECT ONE -->
 	 <select 	id="findProduct"	parameterType="int"	resultMap="productSelectMap">
 		SELECT
-			prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date
+			prod_no,prod_name,prod_detail,manufacture_day,price,image_file,reg_date,STOCK_QUANTITY
 		FROM product
 		WHERE prod_no = #{value}
 		ORDER BY prod_no
@@ -43,14 +44,15 @@
 			manufacture_day = #{manuDate},
 			price = #{price},
 			image_file = #{fileName},
-			reg_date = sysdate
+			reg_date = sysdate,
+			STOCK_QUANTITY = #{stockQuantity}
 	   	</set>
 	   	WHERE prod_no = #{prodNo}
 	 </update>
 
 	<!-- SQL : SELECT LIST -->
 	<select id="getProductList" parameterType="search" resultMap="productSelectMap">
-		SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,
+		SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,stock_quantity
 		       COALESCE(tran_status_code, 'a') AS tran_status_code
 		FROM ( SELECT inner_table.* , ROWNUM AS row_seq
 		FROM ( SELECT p.prod_no,
@@ -60,6 +62,7 @@
 		p.price,
 		p.image_file,
 		p.reg_date,
+		p.stock_quantity,
 		t.tran_status_code
 		FROM product p
 		LEFT JOIN transaction t ON p.prod_no=t.prod_no
@@ -136,6 +139,7 @@
 		p.price,
 		p.image_file,
 		p.reg_date,
+		p.stock_quantity,
 		t.tran_status_code
 		FROM product p
 		LEFT JOIN transaction t ON p.prod_no=t.prod_no

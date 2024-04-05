@@ -13,7 +13,10 @@ public class Product {
 	private String prodName;
 	private int prodNo;
 	private Date regDate;
+	private int stockQuantity;
 	private String proTranCode;
+
+
 	//proTranCode 얘는 Transaction의 TRAN_STATUS_CODE임
 	
 	public Product(){
@@ -67,11 +70,18 @@ public class Product {
 	public void setRegDate(Date regDate) {
 		this.regDate = regDate;
 	}
-
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+	public void setStockQuantity(int stockQuantity) {
+		this.stockQuantity = stockQuantity;
+	}
 	// Override
 	public String toString() {
-		return RED+"Product"+RESET+ "[fileName=" + fileName + ", manuDate=" + manuDate + ",\n price=" + price + ", prodDetail="
-				+ prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo + ",\n regDate=" + regDate + ", proTranCode="
+		return RED+"Product"+RESET+ "[fileName=" + fileName
+				+ ", manuDate=" + manuDate + ",\n price=" + price + ", prodDetail="
+				+ prodDetail + ", prodName=" + prodName + ", prodNo=" + prodNo
+				+ ",\n regDate=" + regDate +", stockQuantity="+stockQuantity +", proTranCode="
 				+ proTranCode + "]";
 	}
 }
