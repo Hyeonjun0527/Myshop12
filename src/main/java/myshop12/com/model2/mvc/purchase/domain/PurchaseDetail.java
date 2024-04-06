@@ -10,9 +10,9 @@ import lombok.*;
 @Setter
 @ToString
 public class PurchaseDetail {
-    private int detailNo;
-    private int tranNo;
-    private int prodNo;
+    private int detailNo;//KEY
+    private int tranNo;//KEY
+    private int prodNo;//KEY
     private int typeQuantity;
     private int typePrice;
 }

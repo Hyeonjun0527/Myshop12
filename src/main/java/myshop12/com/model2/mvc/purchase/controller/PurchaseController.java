@@ -7,6 +7,7 @@ import myshop12.com.model2.mvc.common.domain.Search;
 import myshop12.com.model2.mvc.common.util.CommonUtil;
 import myshop12.com.model2.mvc.product.service.ProductService;
 import myshop12.com.model2.mvc.purchase.domain.Purchase;
+import myshop12.com.model2.mvc.purchase.domain.PurchaseDetail;
 import myshop12.com.model2.mvc.purchase.service.PurchaseService;
 import myshop12.com.model2.mvc.user.domain.User;
 import myshop12.com.model2.mvc.product.domain.Product;
@@ -65,10 +66,9 @@ public class PurchaseController {
     ///Method
     @PostMapping("/addPurchase")
     public ModelAndView addPurchase(@ModelAttribute("purchase") Purchase purchase,
+                                    @ModelAttribute("purchaseDetail") PurchaseDetail purchaseDetail,
                                     @RequestParam("prodNo") int prodNo,
-                                    @RequestParam("receiverPhone") String receiverPhone,
                                     HttpSession session) throws Exception {
-        System.out.println(receiverPhone);
         System.out.println("/addPurchase");
         System.out.println("purchase값 ::"+purchase);
 

@@ -19,11 +19,11 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 	<!-- Bootstrap Dropdown Hover CSS -->
-   <link href="/css/animate.min.css" rel="stylesheet">
    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+   <link href="/css/animate.min.css" rel="stylesheet">
 
-    <!-- Bootstrap Dropdown Hover JS -->
-   <script src="/js/bootstrap-dropdownhover.min.js"></script>
+	<script src="/js/bootstrap-dropdownhover.min.js"></script>
+	<!-- Bootstrap Dropdown Hover JS -->
 
 	<!--  CSS 추가 : 툴바에 화면 가리는 현상 해결 :  주석처리 전, 후 확인-->
 	<style>

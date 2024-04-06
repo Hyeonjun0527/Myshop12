@@ -3,13 +3,13 @@ package myshop12.com.model2.mvc.purchase.repository;
 
 import myshop12.com.model2.mvc.common.domain.Search;
 import myshop12.com.model2.mvc.purchase.domain.Purchase;
+import myshop12.com.model2.mvc.purchase.domain.PurchaseDetail;
 
 import java.util.Map;
 
 public interface PurchaseDao {
 
         public void addPurchase(Purchase purchase) throws Exception;
-
         public Purchase getPurchase(int tranNo) throws Exception;
         public Purchase getPurchaseProdNo(int prodNo) throws Exception;
 

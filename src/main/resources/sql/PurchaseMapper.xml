@@ -65,7 +65,7 @@
 		)
 	</insert>
 
-	<insert id="addPurchaseDetail" parameterType="purchase" useGeneratedKeys="true" keyProperty="detailNo" keyColumn="detail_no">
+	<insert id="addPurchaseDetail" parameterType="purchaseDetail" useGeneratedKeys="true" keyProperty="detailNo" keyColumn="detail_no">
 			INSERT INTO transaction_detail(
 			detail_no, tran_no, prod_no, quantity, type_price
 		) VALUES (
