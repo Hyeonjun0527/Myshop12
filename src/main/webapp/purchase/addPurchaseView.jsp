@@ -75,14 +75,20 @@
                     alert("배송희망일자는 반드시 입력하셔야 합니다.");
                     return;
                 }
+                if($("#totalPrice").val() > +"${product.stockQuantity}"){
+                    alert("재고가 부족합니다.");
+                    return;
+                }
 
                 $("form[name='detailForm']")
                     .attr("method", "post")
                     .attr("action", "/purchase/addPurchase")
                     .submit();
-
+                    //.trigger("submit");
 
             }//end of fncAddPurchase
+
+
             $("[data-calendar]").click(function () {
                 console.log('안녕');
                 show_calendar('document.detailForm.divyDate', $("form[name='detailForm'] input[name='divyDate']").val());
@@ -115,14 +121,14 @@
             <div class="col-sm-3"></div>
             <label for="prodNo" class="offset-sm-2 col-sm-2 col-form-label font-size">상품번호</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodNo" name="userId" value="${product.prodNo}" readonly>
+                <input type="text" class="form-control" id="prodNo" name="prodNo" value="${product.prodNo}" readonly>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="prodName" class="offset-sm-2 col-sm-2 col-form-label font-size">상품명</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodName" name="userId" value="${product.prodName}"
+                <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName}"
                        readonly>
             </div>
         </div>
@@ -130,7 +136,7 @@
             <div class="col-sm-3"></div>
             <label for="prodDetail" class="offset-sm-2 col-sm-2 col-form-label font-size">상품상세정보</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodDetail" name="userId" value="${product.prodDetail}"
+                <input type="text" class="form-control" id="prodDetail" name="prodDetail" value="${product.prodDetail}"
                        readonly>
             </div>
         </div>
@@ -138,7 +144,7 @@
             <div class="col-sm-3"></div>
             <label for="manuDate" class="offset-sm-2 col-sm-2 col-form-label font-size">제조일자</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="manuDate" name="userId" value="${product.manuDate}"
+                <input type="text" class="form-control" id="manuDate" name="manuDate" value="${product.manuDate}"
                        readonly>
             </div>
         </div>
@@ -146,7 +152,14 @@
             <div class="col-sm-3"></div>
             <label for="price" class="offset-sm-2 col-sm-2 col-form-label font-size">가격</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="price" name="userId" value="${product.price}" readonly>
+                <input type="text" class="form-control" id="price" name="price" value="${product.price}" readonly>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-sm-3"></div>
+            <label for="stockQuantity" class="offset-sm-2 col-sm-2 col-form-label font-size">재고</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="stockQuantity" name="stockQuantity" value="${product.stockQuantity}" readonly>
             </div>
         </div>
         <div class="row mb-4">
@@ -202,7 +215,7 @@
 
         <div class="row mb-4">
             <div class="col-sm-3"></div>
-            <label for="divyRequest" class="offset-sm-2 col-sm-2 col-form-label font-size">구매요청사항</label>
+            <label for="divyRequest" class="offset-sm-2 col-sm-2 col-form-label font-size"></label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="divyRequest" name="divyRequest" value="">
             </div>
@@ -213,6 +226,14 @@
             <label for="datepicker" class="offset-sm-2 col-sm-2 col-form-label font-size">배송희망일자</label>
             <div class="col-sm-5">
                 <input type="text" class="form-control" id="datepicker" name="divyDate">
+            </div>
+        </div>
+
+        <div class="row mb-4">
+            <div class="col-sm-3"></div>
+            <label for="totalCount" class="offset-sm-2 col-sm-2 col-form-label font-size">구매수량</label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" id="totalCount" name="totalCount">
             </div>
         </div>
         <div class="row mb-9">
@@ -258,6 +279,8 @@
 		//초기값을 오늘 날짜로 설정해줘야 합니다.
 		$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 	});
+
+
 </script>
 </body>
 </html>

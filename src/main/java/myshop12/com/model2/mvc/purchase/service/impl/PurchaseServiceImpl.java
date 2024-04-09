@@ -1,30 +1,65 @@
 package myshop12.com.model2.mvc.purchase.service.impl;
 
 import myshop12.com.model2.mvc.common.domain.Search;
+import myshop12.com.model2.mvc.product.domain.Product;
+import myshop12.com.model2.mvc.product.repository.ProductDao;
+import myshop12.com.model2.mvc.product.service.ProductService;
+import myshop12.com.model2.mvc.product.service.impl.ProductServiceImpl;
 import myshop12.com.model2.mvc.purchase.domain.Purchase;
+import myshop12.com.model2.mvc.purchase.dto.AddPurchaseRequestDTO;
+import myshop12.com.model2.mvc.purchase.mapper.PurchaseMapper;
 import myshop12.com.model2.mvc.purchase.repository.PurchaseDao;
 import myshop12.com.model2.mvc.purchase.service.PurchaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 @Service("purchaseServiceImpl")
 public class PurchaseServiceImpl implements PurchaseService {
     //// Fields
-    private PurchaseDao purchaseDao;
+    private final PurchaseDao purchaseDao;
+    private final ProductDao productDao;
     /// Setters
-    @Autowired
-    public void setPurchaseDao(@Qualifier("purchaseDaoImpl") PurchaseDao purchaseDao) {
-        this.purchaseDao = purchaseDao;
-    }
+//    @Autowired
+//    public void setPurchaseDao(@Qualifier("purchaseDaoImpl") PurchaseDao purchaseDao) {
+//        this.purchaseDao = purchaseDao;
+//    }
     // Constructors
-    public PurchaseServiceImpl() {
+    @Autowired
+    public PurchaseServiceImpl(@Qualifier("purchaseDao") PurchaseDao purchaseDao,
+                                    @Qualifier("productDaoImpl") ProductDao productDao) {
+        this.purchaseDao = purchaseDao;
+        this.productDao = productDao;
     }
     // Methods
-    public void addPurchase(Purchase purchase) throws Exception {
-        purchaseDao.addPurchase(purchase);
+    public void addPurchase(AddPurchaseRequestDTO dto) throws Exception {
+        //여기서 mapStruct를 사용하여 addPurchaseRequestDTO를 purchase로 변환
+        //여기서 매핑을 하자
+        Purchase purchase = PurchaseMapper.INSTANCE.toEntity(dto);
+        purchase.setTranCode("b");
+        purchaseDao.addPurchase(purchase);//얘는 제너레이트 키로 tranNo를 생성,할당
+        final int tranNo = purchase.getTranNo();
 
+        //리스트의 forEach문으로 요소마다 addPurchaseDetail 메서드를 호출
+        purchase.getPurchaseDetailList().forEach(purchaseDetail -> {
+            try {
+                purchaseDetail.setTranNo(tranNo);
+                purchaseDao.addPurchaseDetail(purchaseDetail);//detailNo를 생성,할당
+                int newStockQuantity = purchaseDetail.getProduct().getStockQuantity() - purchaseDetail.getTypeQuantity();
+                Product product = new Product();
+                product = purchaseDetail.getProduct();
+                product.setStockQuantity(newStockQuantity);
+                productDao.updateProduct(purchaseDetail.getProduct());
+            } catch (Exception e) {
+                // 예외 처리 로직
+                e.printStackTrace();
+            }
+        });
     }
     public Purchase getPurchase(int tranNo) throws Exception {
         return purchaseDao.getPurchase(tranNo);
@@ -33,13 +68,34 @@ public class PurchaseServiceImpl implements PurchaseService {
         return purchaseDao.getPurchaseProdNo(prodNo);
     }
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
-        return purchaseDao.getPurchaseList(map);
+        List<Map<String,Object>> list = purchaseDao.getPurchaseList(map);
+        List<Purchase> purchaseList = null;
+        System.out.println("LIST :: "+list);
+
+
+        int count = 0;
+
+        if(!list.isEmpty()) {
+            count = ((BigDecimal) list.get(0).get("count")).intValue();
+            purchaseList = new ArrayList<Purchase>();
+            for (Map<String, Object> purchaseMap : list) {
+                System.out.println("purchaseMap.get(purchase) :: " + purchaseMap.get("purchase"));
+                purchaseList.add((Purchase) purchaseMap.get("purchase"));
+            }
+
+        }
+        Map<String,Object> map2 = new HashMap<String,Object>();
+        map2.put("list", purchaseList);
+        map2.put("count", count);
+        return map2;
     }
+
     public Map<String, Object> getSaleList(Search search) throws Exception {
         return purchaseDao.getSaleList(search);
     }
     public Purchase updatePurchase(Purchase purchase) throws Exception {
-        return purchaseDao.updatePurchase(purchase);
+        purchaseDao.updatePurchase(purchase);
+        return purchase;
     }
     public void updateTranCode(Purchase purchase) throws Exception {
         purchaseDao.updateTranCode(purchase);

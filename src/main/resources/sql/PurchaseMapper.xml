@@ -24,7 +24,7 @@
 			<!-- purchaseProd 연관 객체 매핑 -->
 			<association property="purchaseProd" column="prod_no" select="ProductMapper.findProduct"/>
 			<association property="buyer" column="buyer_id" select="UserMapper.getUser"/>
-			<collection property="purchaseDetail" ofType="PurchaseDetail">
+			<collection property="purchaseDetail" javaType="java.util.List" ofType="PurchaseDetail">
 				<id property="detailNo" column="detail_no" jdbcType="NUMERIC"/>
 				<result property="tranNo" column="tran_no" jdbcType="NUMERIC"/>
 				<result property="prodNo" column="prod_no" jdbcType="NUMERIC"/>
@@ -47,7 +47,7 @@
 		<result property="totalPrice" column="total_price" jdbcType="NUMERIC"/>
 		<association property="purchaseProd" column="prod_no" select="ProductMapper.findProduct"/>
 		<association property="buyer" column="buyer_id" select="UserMapper.getUser"/>
-		<collection property="purchaseDetail" ofType="PurchaseDetail">
+		<collection property="purchaseDetail" javaType="java.util.List" ofType="PurchaseDetail">
 			<id property="detailNo" column="detail_no" jdbcType="NUMERIC"/>
 			<result property="tranNo" column="tran_no" jdbcType="NUMERIC"/>
 			<result property="prodNo" column="prod_no" jdbcType="NUMERIC"/>
@@ -69,7 +69,7 @@
 			INSERT INTO transaction_detail(
 			detail_no, tran_no, prod_no, quantity, type_price
 		) VALUES (
-		seq_transaction_detail_detail_no.nextval, #{tranNo}, #{purchaseProd.prodNo}, #{quantity}, #{totalPrice}
+		seq_transaction_detail_detail_no.nextval, #{tranNo}, #{purchaseProd.prodNo}, #{typeQuantity}, #{typePrice}
 		)
 	</insert>
 

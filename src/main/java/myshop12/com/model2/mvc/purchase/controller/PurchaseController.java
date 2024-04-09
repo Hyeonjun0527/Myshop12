@@ -8,6 +8,7 @@ import myshop12.com.model2.mvc.common.util.CommonUtil;
 import myshop12.com.model2.mvc.product.service.ProductService;
 import myshop12.com.model2.mvc.purchase.domain.Purchase;
 import myshop12.com.model2.mvc.purchase.domain.PurchaseDetail;
+import myshop12.com.model2.mvc.purchase.dto.AddPurchaseRequestDTO;
 import myshop12.com.model2.mvc.purchase.service.PurchaseService;
 import myshop12.com.model2.mvc.user.domain.User;
 import myshop12.com.model2.mvc.product.domain.Product;
@@ -65,28 +66,29 @@ public class PurchaseController {
 
     ///Method
     @PostMapping("/addPurchase")
-    public ModelAndView addPurchase(@ModelAttribute("purchase") Purchase purchase,
-                                    @ModelAttribute("purchaseDetail") PurchaseDetail purchaseDetail,
+    public ModelAndView addPurchase(@ModelAttribute("purchase") AddPurchaseRequestDTO addPurchaseRequestDTO,
                                     @RequestParam("prodNo") int prodNo,
                                     HttpSession session) throws Exception {
         System.out.println("/addPurchase");
-        System.out.println("purchase값 ::"+purchase);
+        System.out.println("purchase값 ::"+addPurchaseRequestDTO);
+
+
 
         User user = (User)session.getAttribute("user");
+        addPurchaseRequestDTO.setBuyer(user);
 
         Product product = productService.getProduct(prodNo);
-        purchase.setBuyer(user);
-        purchase.setPurchaseProd(product);
-        purchase.setTranCode("b");
+        PurchaseDetail purchaseDetail = PurchaseUtil.createPurchaseDetail(addPurchaseRequestDTO,product);
+        addPurchaseRequestDTO.setPurchaseDetail(purchaseDetail);
 
         System.out.println("prodNO값 :: "+prodNo);
         System.out.println("Product값 :: "+product);
-        System.out.println("Purchase값 :: "+purchase);
-        purchaseService.addPurchase(purchase);
+        System.out.println("Purchase값 :: "+addPurchaseRequestDTO);
+        purchaseService.addPurchase(addPurchaseRequestDTO);
 
         return new ModelAndView(
                 "forward:/purchase/getPurchase.jsp"
-                , Collections.singletonMap("purchase", purchase));
+                , Collections.singletonMap("purchase", addPurchaseRequestDTO));
 
     }
     @GetMapping("/addPurchase")
@@ -100,6 +102,8 @@ public class PurchaseController {
                 "forward:/purchase/addPurchaseView.jsp",
                 model);
     }
+
+
 
     @RequestMapping("/getPurchase")
     public ModelAndView getPurchase(@RequestParam("tranNo") int tranNo,
