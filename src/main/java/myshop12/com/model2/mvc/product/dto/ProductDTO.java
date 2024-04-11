@@ -3,7 +3,7 @@ package myshop12.com.model2.mvc.product.dto;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Data

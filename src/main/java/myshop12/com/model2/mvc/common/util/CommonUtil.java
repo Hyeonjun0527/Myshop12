@@ -2,7 +2,7 @@ package myshop12.com.model2.mvc.common.util;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 
 
 public class CommonUtil {

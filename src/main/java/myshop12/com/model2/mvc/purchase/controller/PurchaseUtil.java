@@ -28,13 +28,21 @@ class PurchaseUtil {
 //        return
 //    }
 
-    public static PurchaseDetail createPurchaseDetail(AddPurchaseRequestDTO addPurchaseRequestDTO, Product product){
+    public static List<PurchaseDetail> createPurchaseDetailList(AddPurchaseRequestDTO addPurchaseRequestDTO, List<Product> productList){
 
-        PurchaseDetail purchaseDetail = new PurchaseDetail();
-        purchaseDetail.setProduct(product);
-        purchaseDetail.setTypeQuantity(addPurchaseRequestDTO.getTotalCount());
+        List<PurchaseDetail> purchaseDetailList = new ArrayList<PurchaseDetail>();
+        int index = 0;
+        for (Product product : productList) {
+            PurchaseDetail purchaseDetail = new PurchaseDetail();
+            purchaseDetail.setProduct(product);
+            purchaseDetail.setTypeQuantity(addPurchaseRequestDTO.getTotalCount().get(index));
+            purchaseDetail.calculateTypePrice();
+            purchaseDetailList.add(purchaseDetail);
+            index++;
+        }
 
-        return purchaseDetail;
+
+        return purchaseDetailList;
 
     }
 

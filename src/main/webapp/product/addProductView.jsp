@@ -133,7 +133,13 @@
 			<input		type="file" name="fileList" multiple class="form-control" id="fileList"/>
 		</div>
 	</div>
+	<div class="form-group">
+		<label for="stockQuantity" class="col-sm-offset-1 col-sm-3 control-label">상품재고수량</label>
 
+		<div class="col-sm-4">
+			<input		type="text" name="stockQuantity" multiple class="form-control" id="stockQuantity"/>
+		</div>
+	</div>
 
 	<div class="form-group">
 		<div class="col-sm-offset-4  col-sm-4 text-center">

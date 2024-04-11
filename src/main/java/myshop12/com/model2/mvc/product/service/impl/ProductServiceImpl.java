@@ -43,6 +43,10 @@ public class ProductServiceImpl implements ProductService {
 		productDao.updateProduct(product);//원래트랜코드도 유지해 왜냐면 원래있던거를 가져다가 수정해서 건내주기때문
 		return  product;
 	}
+	public Product updateProductStock(Product product) throws Exception {
+		productDao.updateProductStock(product);
+		return product;
+	}
 	public Map<String,Object> getProductList(Search search) throws Exception {
 		return productDao.getProductList(search);
 	}

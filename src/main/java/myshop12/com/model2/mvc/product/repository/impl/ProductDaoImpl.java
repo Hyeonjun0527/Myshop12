@@ -56,6 +56,9 @@ public class ProductDaoImpl implements ProductDao {
 	public void updateProduct(Product product) throws Exception {
 		sqlSession.update("ProductMapper.updateProduct", product);
 	}
+	public void updateProductStock(Product product) throws Exception {
+		sqlSession.update("ProductMapper.updateProductStock", product);
+	}
 	//getTotalCount는 따로 구현하지 않음. totalcount는 getProductList에서 구현함
 
 }

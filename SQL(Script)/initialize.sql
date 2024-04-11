@@ -58,7 +58,6 @@ CREATE TABLE product (
 
 CREATE TABLE transaction ( 
 	tran_no 					NUMBER 			NOT NULL,
-	prod_no 					NUMBER(16)		NOT NULL REFERENCES product(prod_no),
 	buyer_id 				VARCHAR2(20)	NOT NULL REFERENCES users(user_id),
 	payment_option		CHAR(3),
 	receiver_name 		VARCHAR2(20),
@@ -66,7 +65,7 @@ CREATE TABLE transaction (
 	demailaddr 			VARCHAR2(100),
 	dlvy_request 			VARCHAR2(100),
 	tran_status_code	CHAR(3),
-	order_data 			DATE,
+	order_date 			DATE,
 	dlvy_date 				DATE,
     total_price             NUMBER NOT NULL,
 	PRIMARY KEY(tran_no)
@@ -166,7 +165,7 @@ insert into product values (seq_product_prod_no.nextval,'삼성센스 2G','sens 
 insert into product values (seq_product_prod_no.nextval,'연꽃','정원을 가꿔보세요','20121022',232300, 'AHlbAAAAtDPSiQAA.jpg',to_date('2012/11/15 17:39:01', 'YYYY/MM/DD HH24:MI:SS'),3);
 insert into product values (seq_product_prod_no.nextval,'삼성센스','노트북','20120212',600000, 'AHlbAAAAug1vsgAA.jpg',to_date('2012/11/12 13:04:31', 'YYYY/MM/DD HH24:MI:SS'),3);
 
-insert into transaction values (seq_transaction_tran_no.nextval, 10000, 'user12', '1', '김철수', '010-1234-5678','서울시 강남구','배송시 연락주세요','a',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),14000);
+insert into transaction values (seq_transaction_tran_no.nextval,'user12', '1', '김철수', '010-1234-5678','서울시 강남구','배송시 연락주세요','b',to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),to_date('2012/11/14 10:48:43', 'YYYY/MM/DD HH24:MI:SS'),14000);
 
 insert into transactionDetail values (seq_tranDetail_detail_no.nextval, 10000, 10000, 2, 4000);
 insert into transactionDetail values (seq_tranDetail_detail_no.nextval, 10000, 10001, 1, 10000);
@@ -179,3 +178,6 @@ select * from category;
 
 
 commit;
+
+
+--NOT NULL에 조건을 걸어주면서 참조키를 걸면 서로 반드시 존재하는 사이가 된다. transaction 과 transactionDetail

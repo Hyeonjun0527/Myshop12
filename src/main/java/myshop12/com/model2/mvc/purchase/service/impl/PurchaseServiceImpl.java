@@ -40,8 +40,14 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void addPurchase(AddPurchaseRequestDTO dto) throws Exception {
         //여기서 mapStruct를 사용하여 addPurchaseRequestDTO를 purchase로 변환
         //여기서 매핑을 하자
+        //totalPrice를 계산
+        dto.calculateTotalPrice();
+        System.out.println("PurchaseServiceImpl dto :: "+dto);
+
+
         Purchase purchase = PurchaseMapper.INSTANCE.toEntity(dto);
         purchase.setTranCode("b");
+        System.out.println(purchase);
         purchaseDao.addPurchase(purchase);//얘는 제너레이트 키로 tranNo를 생성,할당
         final int tranNo = purchase.getTranNo();
 
@@ -50,11 +56,16 @@ public class PurchaseServiceImpl implements PurchaseService {
             try {
                 purchaseDetail.setTranNo(tranNo);
                 purchaseDao.addPurchaseDetail(purchaseDetail);//detailNo를 생성,할당
+                System.out.println("purchaseDetail.getProduct().getStockQuantity() : " + purchaseDetail.getProduct().getStockQuantity());
+                System.out.println("purchaseDetail.getTypeQuantity() : " + purchaseDetail.getTypeQuantity());
                 int newStockQuantity = purchaseDetail.getProduct().getStockQuantity() - purchaseDetail.getTypeQuantity();
+                System.out.println("newStockQuantity : " + newStockQuantity);
                 Product product = new Product();
                 product = purchaseDetail.getProduct();
+                System.out.println("product before : " + product);
                 product.setStockQuantity(newStockQuantity);
-                productDao.updateProduct(purchaseDetail.getProduct());
+                System.out.println("product after : " + product);
+                productDao.updateProductStock(product);
             } catch (Exception e) {
                 // 예외 처리 로직
                 e.printStackTrace();
@@ -64,13 +75,10 @@ public class PurchaseServiceImpl implements PurchaseService {
     public Purchase getPurchase(int tranNo) throws Exception {
         return purchaseDao.getPurchase(tranNo);
     }
-    public Purchase getPurchaseProdNo(int prodNo) throws Exception {
-        return purchaseDao.getPurchaseProdNo(prodNo);
-    }
     public Map<String, Object> getPurchaseList(Map<String,Object> map) throws Exception {
         List<Map<String,Object>> list = purchaseDao.getPurchaseList(map);
         List<Purchase> purchaseList = null;
-        System.out.println("LIST :: "+list);
+        System.out.println("LIST :: "+list);//여기서 product=null,typeQuantity=0이야..
 
 
         int count = 0;

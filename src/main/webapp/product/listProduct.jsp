@@ -149,6 +149,7 @@
                 <td>No</td>
                 <td>상품명</td>
                 <td>가격</td>
+                <td>남은수량</td>
                 <td>등록일</td>
                 <td>현재상태</td>
                 <td>찜하기</td>
@@ -173,6 +174,8 @@
                     </c:if>
                     <td align="left">${product.price}</td>
                     <!-- 가격 -->
+                    <td align="left">${product.stockQuantity}</td>
+                    <!-- 남은수량 -->
                     <td align="left">${product.regDate}</td>
                     <c:if test="${product.proTranCode!=null}">
 
@@ -232,10 +235,10 @@
             let prodNo = $(this).data('prodno');
             window.location.href = "/product/getProduct?prodNo=" + prodNo + "&menu=${menu}";
         });
-        $('span.clickableSpan').click(function () {
-            let prodNo = $(this).data('prodno');
-            window.location.href = "/purchase/updateTranCode?prodNo=" + prodNo + "&navigationPage=listProduct&menu=manage";
-        })
+        // $('span.clickableSpan').click(function () {
+        //     let prodNo = $(this).data('prodno');
+        //     window.location.href = "/purchase/updateTranCode?prodNo=" + prodNo + "&navigationPage=listProduct&menu=manage";
+        // })
         $('button[data-setLike]').click(function () {
             let prodNo = $(this).data('prodno');
             window.location.href = "/product/setLikeProduct?prodNo=" + prodNo + "&menu=${menu}&currentPage=${resultPage.currentPage}";

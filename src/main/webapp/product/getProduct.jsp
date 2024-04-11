@@ -105,6 +105,11 @@ Product productVO=(Product)request.getAttribute("productVO");
         <div class="col-xs-8 col-md-4">${product.regDate}</div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-4 col-md-2 "><strong>수량</strong></div>
+        <div class="col-xs-8 col-md-4">${product.stockQuantity}</div>
+    </div>
+
     <hr/>
 
 

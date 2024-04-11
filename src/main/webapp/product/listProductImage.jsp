@@ -205,6 +205,7 @@
                         <h3>상품명 : ${product.prodName}</h3>
                         <p>상품설명 : </p>
                         <p>가격 : ${product.price}</p>
+                        <p>남은 수량 : ${product.stockQuantity}</p>
 
                         <p>현재상태 :
                         <c:if test="${product.proTranCode!=null}">

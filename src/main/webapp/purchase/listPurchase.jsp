@@ -23,7 +23,15 @@
     <%--사용자--%>
     <link rel="stylesheet" href="/css/font.css" type="text/css">
     <%--	<link rel="stylesheet" href="/css/listPurchase.css" type="text/css">--%>
-
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .size-set{
+            width:1140px;
+            margin-left: 15px;
+        }
+    </style>
 </head>
 <body class="default-font">
 <form class="form-inline" name="detailForm">
@@ -46,10 +54,15 @@
                 <tr>
                     <td>No</td>
                     <td>회원ID</td>
-                    <td>회원명</td>
+                    <td>구매자이름</td>
                     <td>전화번호</td>
+                    <td>총금액</td>
+                    <c:forEach var="purchase" items="${list}">
+                    <c:forEach var="purchaseDetail" items="${purchase.purchaseDetailList}">
+                        <td>구매상품</td>
+                    </c:forEach>
+                    </c:forEach>
                     <td>배송현황</td>
-                    <td>정보수정</td>
                 </tr>
                 </thead>
 
@@ -60,18 +73,25 @@
                     <c:set var="i" value="${i+1 }"/>
                 <tr>
                     <td align="center">${i}</td>
-                    <td>
-                        <c:if test="${purchase.purchaseProd.prodNo!=0 }">
-                            <button class="btn btn-primary click-event" type="button" data-getPurchase
-                                    data-prodNo="${purchase.purchaseProd.prodNo}">${purchase.purchaseProd.prodNo}</button>
-                        </c:if>
-                    </td>
                     <td align="left">
                         <button class="btn btn-primary click-event" type="button" data-getUser
                                 data-userId="${purchase.buyer.userId}">${purchase.buyer.userId}</button>
                     </td>
                     <td align="left">${purchase.receiverName}</td>
                     <td align="left">${purchase.receiverPhone}</td>
+                    <td align="left">${purchase.totalPrice}</td>
+
+                    <c:forEach var="purchaseDetail" items="${purchase.purchaseDetailList}">
+                        <td align="left">
+                            <c:if test="${purchaseDetail.product.prodNo!=0 }">
+                                <button class="btn btn-primary click-event" type="button" data-getPurchase
+                                        data-prodNo="${purchaseDetail.product.prodNo}">${purchaseDetail.product.prodName}</button>
+                            </c:if>
+                            <br/>
+                            개수 : ${purchaseDetail.typeQuantity}</br>
+                            총금액 : ${purchaseDetail.typePrice}
+                        </td>
+                    </c:forEach>
 
 
                     <c:if test="${purchase.tranCode!=null}">
@@ -95,7 +115,7 @@
 
                             <c:if test="${menu == 'manage' || menu == 'ok'}">
 								<span class="click-event clickableSpan" data-update
-                                      data-prodNo="${purchase.purchaseProd.prodNo}">${resultB2}</span>
+                                      data-tranNo="${purchase.tranNo}">${resultB2}</span>
                             </c:if>
 
                                 ${resultC}${resultD}
@@ -109,7 +129,7 @@
                             <c:if test="${! empty purchase.tranCode}">
                                 <c:if test="${purchase.tranCode.trim() == 'c'}">
 										<span class="click-event clickableSpan" data-update
-                                              data-prodNo="${purchase.purchaseProd.prodNo}">
+                                              data-tranNo="${purchase.tranNo}">
 											물건도착
 										</span>
                                 </c:if>
@@ -150,7 +170,7 @@
     }//end of fncGetList
 
     $(document).ready(function () {
-        $("span.click-event").click(function () {
+        $(".click-event").click(function () {
             console.log("클릭했어요");
             //클릭이벤트 1
             if (typeof $(this).data("getpurchase") !== "undefined") {
@@ -170,10 +190,10 @@
                 //클릭이벤트3
             } else if (typeof $(this).data("update") !== "undefined") {
                 console.log("update");
-                let prodNo = $(this).data("prodno");
+                let prodNo = $(this).data("tranno");
                 $("form[name='detailForm']")
                     .attr("method", "post")
-                    .attr("action", "/purchase/updatePurchase?prodNo=" + prodNo + "&menu=${param.menu}" + "&navigationPage=listPurchase")
+                    .attr("action", "/purchase/updateTranCode?tranNo=" + tranNo + "&menu=${param.menu}" + "&navigationPage=listPurchase")
                     .submit();
             }
         });

@@ -39,8 +39,15 @@
 		<h3 class=" text-info">다음과 같이 구매가 되었습니다.</h3>
 	</div>
 	<div class="row">
-		<div class="col-xs-4 col-md-2"><strong>물품번호</strong></div>
-		<div class="col-xs-8 col-md-4">${purchase.purchaseProd.prodNo}</div>
+<%--		<div class="col-xs-8 col-md-4">구매번호 : ${purchase.tranNo}</div>--%>
+
+		<c:forEach var="purchaseDetail" items="${purchase.purchaseDetailList}">
+			<div class="col-xs-8 col-md-4">구매물품번호 : ${purchaseDetail.detailNo}</div>
+			<div class="col-xs-8 col-md-4">상품이름 : ${purchaseDetail.product.prodName}</div>
+			<div class="col-xs-8 col-md-4">상품번호 : ${purchaseDetail.product.prodNo}</div>
+			<div class="col-xs-8 col-md-4">구매한 개수 : ${purchaseDetail.typeQuantity}</div>
+			<div class="col-xs-8 col-md-4">상품별 가격 : ${purchaseDetail.typePrice}</div>
+		</c:forEach>
 	</div>
 
 	<hr/>

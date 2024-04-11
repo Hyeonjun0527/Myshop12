@@ -12,9 +12,6 @@ public interface PurchaseMapper {
     PurchaseMapper INSTANCE = Mappers.getMapper(PurchaseMapper.class);
 
     //DTO를 도메인으로 변환
-    @Mapping(target = "tranNo",ignore = true)
-    @Mapping(target = "tranCode", ignore = true)
-    @Mapping(target = "totalPrice", ignore = true)
-    @Mapping(source = "purchaseDetail", target = "purchaseDetailList")
+    @Mapping(target = "tranNo", ignore = true)
     Purchase toEntity(AddPurchaseRequestDTO dto);
 }

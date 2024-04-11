@@ -92,6 +92,8 @@
 					<td class="ct_line02"></td>
 					<td class="ct_list_b" width="150">가격</td>
 					<td class="ct_line02"></td>
+					<td class="ct_list_b" width="150">남은수량</td>
+					<td class="ct_line02"></td>
 					<td class="ct_list_b">등록일</td>
 					<td class="ct_line02"></td>
 					<td class="ct_list_b">현재상태</td>
@@ -120,6 +122,9 @@
 								</c:if>
 								<td></td>
 								<td align="left">${product.price }</td>
+								<!-- 가격 -->
+								<td></td>
+								<td align="left">${product.stockQuantity}</td>
 								<!-- 가격 -->
 								<td></td>
 								<td align="left">${product.regDate}</td>

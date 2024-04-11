@@ -13,8 +13,6 @@ public interface PurchaseService {
     void addPurchase(AddPurchaseRequestDTO purchaseDTO) throws Exception;
 
     public Purchase getPurchase(int tranNo) throws Exception;
-    public Purchase getPurchaseProdNo(int prodNo) throws Exception;
-
     public Map<String, Object> getPurchaseList(Map<String, Object> map) throws Exception;
 
     public Map<String, Object> getSaleList(Search search) throws Exception;

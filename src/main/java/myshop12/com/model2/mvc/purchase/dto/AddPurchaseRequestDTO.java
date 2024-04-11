@@ -23,6 +23,14 @@ public class AddPurchaseRequestDTO {//얘는 하나만 구매하는 경우다.
     //"현금구매" "신용구매"
     private String receiverName;//구매자이름
     private String receiverPhone;//구매자연락처
-    private PurchaseDetail purchaseDetail;//
-    private int totalCount;//구매 개수
+    private String tranCode;
+    private int totalPrice;//총가격
+    private List<PurchaseDetail> purchaseDetailList;//
+    private List<Integer> totalCount;//구매 개수
+
+    public void calculateTotalPrice(){
+        for (PurchaseDetail purchaseDetail : purchaseDetailList) {
+            this.totalPrice+=purchaseDetail.getTypePrice();
+        }
+    }
 }

@@ -13,6 +13,6 @@ public interface ProductDao {
 	void insertProduct(Product product) throws Exception;
 	public Product findProduct(int prodNo) throws Exception;
 	public Map<String,Object> getProductList(Search search) throws Exception;
-	public void updateProduct(Product productVO) throws Exception;
-
+	public void updateProduct(Product product) throws Exception;
+	public void updateProductStock(Product product) throws Exception;
 }

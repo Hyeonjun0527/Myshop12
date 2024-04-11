@@ -51,9 +51,14 @@
 		    </li>
 		  </ul>
 		</nav>
-		
 </div>
- 
+ <script>
+	 $(document).ready(function() {
+		 $(".disabled").click(function (event) {
+			 event.preventDefault();
+		 })
+	 });
+ </script>
 
 
 <%--<div class="container">--%>

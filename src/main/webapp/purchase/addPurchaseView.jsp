@@ -54,6 +54,7 @@
                 var divyAddr = $("form[name='detailForm'] input[name='divyAddr']").val();
                 var divyRequest = $("form[name='detailForm'] input[name='divyRequest']").val();
                 var divyDate = $("form[name='detailForm'] input[name='divyDate']").val();
+                var totalCount = $("form[name='detailForm'] input[name='totalCount']").val();
 
                 if (receiverName == null || receiverName.length < 1) {
                     alert("구매자이름은 반드시 입력하여야 합니다.");
@@ -75,7 +76,15 @@
                     alert("배송희망일자는 반드시 입력하셔야 합니다.");
                     return;
                 }
-                if($("#totalPrice").val() > +"${product.stockQuantity}"){
+                if (divyDate == null || divyDate.length < 1) {
+                    alert("배송희망일자는 반드시 입력하셔야 합니다.");
+                    return;
+                }
+                if (totalCount == null || totalCount.length < 1) {
+                    alert("구매수량은 반드시 입력하셔야 합니다.");
+                    return;
+                }
+                if(+totalCount > +"${product.stockQuantity}"){
                     alert("재고가 부족합니다.");
                     return;
                 }
@@ -110,10 +119,6 @@
 <jsp:include page="/layout/toolbar.jsp"/>
 <div class="container">
     <form class="form-horizontal default-font" name="detailForm">
-
-        <input type="hidden" name="prodNo" value="${product.prodNo}">
-
-
         <h1 class="bg-primary text-center" style="border-radius: 10px">상품상세조회</h1>
 
 

@@ -67,23 +67,35 @@ public class PurchaseController {
     ///Method
     @PostMapping("/addPurchase")
     public ModelAndView addPurchase(@ModelAttribute("purchase") AddPurchaseRequestDTO addPurchaseRequestDTO,
-                                    @RequestParam("prodNo") int prodNo,
+                                    @RequestParam("prodNo") List<Integer> prodNoList,
                                     HttpSession session) throws Exception {
         System.out.println("/addPurchase");
-        System.out.println("purchase값 ::"+addPurchaseRequestDTO);
+
 
 
 
         User user = (User)session.getAttribute("user");
         addPurchaseRequestDTO.setBuyer(user);
 
-        Product product = productService.getProduct(prodNo);
-        PurchaseDetail purchaseDetail = PurchaseUtil.createPurchaseDetail(addPurchaseRequestDTO,product);
-        addPurchaseRequestDTO.setPurchaseDetail(purchaseDetail);
+        List<Product> productList = new ArrayList<>();
 
-        System.out.println("prodNO값 :: "+prodNo);
-        System.out.println("Product값 :: "+product);
+        System.out.println("purchase값 ::"+addPurchaseRequestDTO);
+
+        System.out.println("prodNoList :: "+prodNoList);
+
+        for (int prodNo : prodNoList) {
+            Product product = productService.getProduct(prodNo);
+            productList.add(product);
+        }
+
+        List<PurchaseDetail> purchaseDetailList = PurchaseUtil.createPurchaseDetailList(addPurchaseRequestDTO,productList);
+        addPurchaseRequestDTO.setPurchaseDetailList(purchaseDetailList);
+
+        System.out.println("prodNO값 :: "+prodNoList);
+        System.out.println("Product값 :: "+productList);
+        System.out.println("PurchaseDetail값 :: "+purchaseDetailList);
         System.out.println("Purchase값 :: "+addPurchaseRequestDTO);
+        System.out.println("detailNo tranNo 0인게 맞음");
         purchaseService.addPurchase(addPurchaseRequestDTO);
 
         return new ModelAndView(
@@ -128,7 +140,6 @@ public class PurchaseController {
     @RequestMapping("/listPurchase")
     public ModelAndView listPurchase(HttpSession session,
                                      @ModelAttribute("search") Search search,
-                                     @ModelAttribute("purchase") Purchase purchase,
                                      @RequestParam("menu") String menu
                                      ) throws Exception {
         System.out.println("/listPurchase 시작합니다...");
@@ -143,6 +154,7 @@ public class PurchaseController {
 
         search.setCurrentPage(currentPage);
         search.setPageSize(pageSize);
+        //count 5개 = 5개의 쿼리 4~6RowNum
         System.out.println("search.getStartRowNum()::"+search.getStartRowNum());
         System.out.println("search.getEndRowNum()::"+search.getEndRowNum());
         System.out.println("여기서 search가 "+search);
@@ -182,7 +194,8 @@ public class PurchaseController {
 
         int totalCount = (Integer) map.getOrDefault("count", 0);
         List<Purchase> purchaseList = (List<Purchase>) map.get("list");
-
+        System.out.println("purchaseList");
+        System.out.println(purchaseList);
         Page resultPage = new Page(currentPage, totalCount, pageUnit, pageSize);
         System.out.println("ListPurchaseAction ::" + resultPage);
 
@@ -198,7 +211,6 @@ public class PurchaseController {
 
     @PostMapping("/updatePurchase")
     public ModelAndView updatePurchase(@RequestParam("tranNo") int tranNo,
-                                       @RequestParam("prodNo") int prodNo,
                                        @ModelAttribute("purchase") Purchase lastPurchase) throws Exception {
         System.out.println("/updatePurchase가 시작됩니다...");
 
@@ -240,12 +252,12 @@ public class PurchaseController {
                 Collections.singletonMap("purchase", purchase));
     }
     @RequestMapping("/updateTranCode")
-    public ModelAndView updateTranCode(@RequestParam("prodNo") int prodNo,
+    public ModelAndView updateTranCode(@RequestParam("tranNo") int tranNo,
                                        @RequestParam("navigationPage") String navigationPage,
                                        @RequestParam("menu") String menu) throws Exception {
         System.out.println("/updateTranCode가 시작됩니다...");
 
-        Purchase purchase = purchaseService.getPurchaseProdNo(prodNo);
+        Purchase purchase = purchaseService.getPurchase(tranNo);
         System.out.println("updateTranCode :: 여기서 " + purchase);
 
         if (CommonUtil.null2str(purchase.getTranCode()).equals("b")) {
