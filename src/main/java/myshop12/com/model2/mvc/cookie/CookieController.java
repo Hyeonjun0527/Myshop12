@@ -265,12 +265,15 @@ public class CookieController {
         //likeProduct로 보낸다.
         request.setAttribute("createLikeData", createLikeData);
 
-        if (from.equals("removeLike")) {
-            return "forward:/product/likeProduct";
-        } else {
-            //from = left.jsp
-            return "forward:/product/likeProduct";
+        if(from!=null) {
+            if (from.equals("removeLike")) {
+                return "forward:/product/likeProduct";
+            } else {
+                //from = left.jsp
+                return "forward:/product/likeProduct";
+            }
         }
+        return "forward:/product/likeProduct";
     }//end of createLike
 
 }

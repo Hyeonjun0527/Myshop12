@@ -67,13 +67,10 @@ public class PurchaseController {
     ///Method
     @PostMapping("/addPurchase")
     public ModelAndView addPurchase(@ModelAttribute("purchase") AddPurchaseRequestDTO addPurchaseRequestDTO,
+                                    @RequestParam("typeCount") List<Integer> typeCountList,
                                     @RequestParam("prodNo") List<Integer> prodNoList,
                                     HttpSession session) throws Exception {
         System.out.println("/addPurchase");
-
-
-
-
         User user = (User)session.getAttribute("user");
         addPurchaseRequestDTO.setBuyer(user);
 
@@ -82,12 +79,15 @@ public class PurchaseController {
         System.out.println("purchase값 ::"+addPurchaseRequestDTO);
 
         System.out.println("prodNoList :: "+prodNoList);
+        System.out.println("typeCountList :: " + typeCountList);
+
 
         for (int prodNo : prodNoList) {
             Product product = productService.getProduct(prodNo);
             productList.add(product);
         }
 
+        addPurchaseRequestDTO.setTypeCountList(typeCountList);
         List<PurchaseDetail> purchaseDetailList = PurchaseUtil.createPurchaseDetailList(addPurchaseRequestDTO,productList);
         addPurchaseRequestDTO.setPurchaseDetailList(purchaseDetailList);
 
@@ -108,14 +108,15 @@ public class PurchaseController {
 //    @RequestMapping(value = "/addPurchase", method = RequestMethod.GET)
     @GetMapping(value = "/addPurchase")
     public ModelAndView addPurchaseView(@RequestParam("prodNo") List<Integer> prodNoList) throws Exception {
-        System.out.println("/addPurchaseView");
-
+        System.out.println("PurchaseController/addPurchaseView");
+        System.out.println(prodNoList);
+        Map<String, Object> model = new HashMap<>();
         List<Product> productList = new ArrayList<>();
         for (int prodNo : prodNoList) {
             Product product = productService.getProduct(prodNo);
+            System.out.println(product);
             productList.add(product);
         }
-        Map<String, Object> model = new HashMap<>();
         model.put("productList", productList);
         return new ModelAndView(
                 "forward:/purchase/addPurchaseView.jsp",
@@ -206,8 +207,10 @@ public class PurchaseController {
                 })
                 .orElse(map);
 
-        int totalCount = (Integer) map.getOrDefault("count", 0);
         List<Purchase> purchaseList = (List<Purchase>) map.get("list");
+        int totalCount = purchaseList.size();
+        System.out.println("totalCount");
+        System.out.println(totalCount);
         System.out.println("purchaseList");
         System.out.println(purchaseList);
         Page resultPage = new Page(currentPage, totalCount, pageUnit, pageSize);

@@ -173,6 +173,12 @@ public class ProductController {
         //menu,currentPage,products
         List<Product> products =(List<Product>)(createLikeData.get("products"));
 
+        for (Product product : products) {
+            if(product.getStockQuantity()==0){
+                model.addAttribute("pass","false");
+            }
+        }
+
 
         int productsSize = products != null ? products.size() : 0;
 
@@ -191,6 +197,8 @@ public class ProductController {
         model.addAttribute("search",search);
         model.addAttribute("resultPage", page);
         model.addAttribute("menu", menu);
+
+
 
         System.out.println("/likeProduct이 끝났습니다..");
 
@@ -237,7 +245,8 @@ public class ProductController {
 
         search.setCurrentPage(currentPage);
         search.setPageSize(pageSize);
-
+        System.out.println("search");
+        System.out.println(search);
         Map<String, Object> productMap = productService.getProductList(search);//Like와 다른 부분
         List<Product> list = (List<Product>)productMap.get("list");
         List<List<String>> fileNameListList = new ArrayList<>();

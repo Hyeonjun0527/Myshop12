@@ -1,22 +1,26 @@
 <%@ page import="myshop12.com.model2.mvc.purchase.domain.Purchase" %>
 <%@ page import="java.util.List" %>
 <%@ page import="myshop12.com.model2.mvc.purchase.domain.PurchaseDetail" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="java.util.concurrent.atomic.AtomicInteger" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%
-    List< Purchase> list = (List<Purchase>) request.getAttribute("list");
-    int maxInt = -999;
-    for(Purchase purchase : list){
-        int participant = 0;
-        for(PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()){
-            participant++;
-            if(maxInt < participant){
-                maxInt = participant;
-            }
-        }
-    }
-    request.setAttribute("maxInt",maxInt);
+    Optional<List<Purchase>> optionalList = Optional.ofNullable((List<Purchase>) request.getAttribute("list"));
+
+    AtomicInteger maxInt = new AtomicInteger(-999);
+    optionalList.ifPresent(list -> {
+                for (Purchase purchase : list) {
+                    AtomicInteger participant = new AtomicInteger(0);
+                    for (PurchaseDetail purchaseDetail : purchase.getPurchaseDetailList()) {
+                        participant.incrementAndGet();
+                        maxInt.updateAndGet(x -> Math.max(x, participant.get()));
+                    }
+                }
+            });
+            int finalMaxInt = maxInt.get();
+            request.setAttribute("maxInt", finalMaxInt);
 %>
 <html>
 <head>

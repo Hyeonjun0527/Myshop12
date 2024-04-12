@@ -54,6 +54,8 @@
 </div>
  <script>
 	 $(document).ready(function() {
+		 console.log("resultPage.beginUnitPage :: "+"${resultPage.beginUnitPage}");
+		 console.log("resultPage.endUnitPage :: " + "${resultPage.endUnitPage}");
 		 $(".disabled").click(function (event) {
 			 event.preventDefault();
 		 })

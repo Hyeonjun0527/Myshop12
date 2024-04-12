@@ -41,7 +41,10 @@
             display: none;
         }
         .font-size{
-            font-size: 24px;
+            font-size: 16px;
+        }
+        .mb-4{
+            margin-bottom:20px;
         }
 
 	</style>
@@ -55,7 +58,7 @@
                 var divyAddr = $("form[name='detailForm'] input[name='divyAddr']").val();
                 var divyRequest = $("form[name='detailForm'] input[name='divyRequest']").val();
                 var divyDate = $("form[name='detailForm'] input[name='divyDate']").val();
-                var totalCount = $("form[name='detailForm'] input[name='totalCount']").val();
+                var typeCount = $("form[name='detailForm'] input[name='typeCount']").val();
 
                 if (receiverName == null || receiverName.length < 1) {
                     alert("구매자이름은 반드시 입력하여야 합니다.");
@@ -81,12 +84,8 @@
                     alert("배송희망일자는 반드시 입력하셔야 합니다.");
                     return;
                 }
-                if (totalCount == null || totalCount.length < 1) {
+                if (typeCount == null || typeCount.length < 1) {
                     alert("구매수량은 반드시 입력하셔야 합니다.");
-                    return;
-                }
-                if(+totalCount > +"${product.stockQuantity}"){
-                    alert("재고가 부족합니다.");
                     return;
                 }
 
@@ -116,90 +115,65 @@
     </script>
 </head>
 
-<body>
+<body class="default-font">
 <jsp:include page="/layout/toolbar.jsp"/>
 <div class="container">
     <form class="form-horizontal default-font" name="detailForm">
-        <h1 class="bg-primary text-center" style="border-radius: 10px">상품상세조회</h1>
-
+        <h1 class="bg-primary text-center" style="border-radius: 10px">상품 구매</h1>
 
         <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="prodNo" class="offset-sm-2 col-sm-2 col-form-label font-size">상품번호</label>
-            <div class="col-sm-5">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-5 font-size">
+           제품들이 모두 구매됩니다.
+            </div>
+        </div>
+
+        <c:forEach var="product" items="${productList}">
+        <div class="row col-sm-12 mb-4">
+            <label for="prodNo" class="col-sm-2 col-form-label font-size">상품번호</label>
+                <div class="col-sm-2">
                 <select name="prodNo" class="form-control" id="prodNo" readonly>
-                <c:forEach var="product" items="${productList}">
                         <option value="${product.prodNo}">${product.prodNo}</option>
-                </c:forEach>
                 </select>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="prodName" class="offset-sm-2 col-sm-2 col-form-label font-size">상품명</label>
-            <div class="col-sm-5">
-                <select name="prodName" class="form-control" id="prodName" readonly>
-                    <c:forEach var="product" items="${productList}">
-                        <option value="${product.prodName}">${product.prodName}</option>
-                    </c:forEach>
-                </select>
-            </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="prodDetail" class="offset-sm-2 col-sm-2 col-form-label font-size">상품상세정보</label>
-            <div class="col-sm-5">
-            <select name="prodDetail" class="form-control" id="prodDetail" readonly>
-                <c:forEach var="product" items="${productList}">
-                    <option value="${product.prodDetail}">${product.prodDetail}</option>
-                </c:forEach>
+                </div>
+            <label for="prodName" class="col-sm-2 col-form-label font-size">상품명</label>
+                <div class="col-sm-2">
+            <select name="prodName" class="form-control" id="prodName" readonly>
+                <option value="${product.prodName}">${product.prodName}</option>
             </select>
+                </div>
+            <label for="prodDetail" class="col-sm-2 col-form-label font-size">상품상세정보</label>
+            <div class="col-sm-2">
+                <select name="prodDetail" class="form-control" id="prodDetail" readonly>
+                    <option value="${product.prodDetail}">${product.prodDetail}</option>
+                </select>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="manuDate" class="offset-sm-2 col-sm-2 col-form-label font-size">제조일자</label>
-            <div class="col-sm-5">
+            <label for="manuDate" class="col-sm-2 col-form-label font-size">제조일자</label>
+            <div class="col-sm-2">
                 <select name="manuDate" class="form-control" id="manuDate" readonly>
-                    <c:forEach var="product" items="${productList}">
-                        <option value="${product.manuDate}">${product.manuDate}</option>
-                    </c:forEach>
+                    <option value="${product.manuDate}">${product.manuDate}</option>
                 </select>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="price" class="offset-sm-2 col-sm-2 col-form-label font-size">가격</label>
-            <div class="col-sm-5">
+            <label for="price" class="col-sm-2 col-form-label font-size">제조일자</label>
+            <div class="col-sm-2">
                 <select name="price" class="form-control" id="price" readonly>
-                    <c:forEach var="product" items="${productList}">
-                        <option value="${product.price}">${product.price}</option>
-                    </c:forEach>
+                    <option value="${product.price}">${product.price}</option>
                 </select>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="stockQuantity" class="offset-sm-2 col-sm-2 col-form-label font-size">재고</label>
-            <div class="col-sm-5">
+            <label for="stockQuantity" class="col-sm-2 col-form-label font-size">재고</label>
+            <div class="col-sm-2">
                 <select name="stockQuantity" class="form-control" id="stockQuantity" readonly>
-                    <c:forEach var="product" items="${productList}">
-                        <option value="${product.stockQuantity}">${product.stockQuantity}</option>
-                    </c:forEach>
+                    <option value="${product.stockQuantity}">${product.stockQuantity}</option>
                 </select>
             </div>
-        </div>
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="regDate" class="offset-sm-2 col-sm-2 col-form-label font-size">등록일자</label>
-            <div class="col-sm-5">
+            <label for="regDate" class="col-sm-2 col-form-label font-size">등록일자</label>
+            <div class="col-sm-2">
                 <select name="regDate" class="form-control" id="regDate" readonly>
-                    <c:forEach var="product" items="${productList}">
-                        <option value="${product.regDate}">${product.regDate}</option>
-                    </c:forEach>
+                    <option value="${product.regDate}">${product.regDate}</option>
                 </select>
             </div>
         </div>
+        </c:forEach>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="userId" class="offset-sm-2 col-sm-2 col-form-label font-size">구매자아이디</label>
@@ -260,13 +234,15 @@
             </div>
         </div>
 
-        <div class="row mb-4">
-            <div class="col-sm-3"></div>
-            <label for="totalCount" class="offset-sm-2 col-sm-2 col-form-label font-size">구매수량</label>
-            <div class="col-sm-5">
-                <input type="text" class="form-control" id="totalCount" name="totalCount">
-            </div>
+        <div class=""
+        <c:forEach var="product" items="${productList}">
+        <div class="row col-sm-1">
+            <label for="typeCount" class="col-form-label font-size">구매수량</label>
         </div>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" id="typeCount" name="typeCount">
+            </div>
+        </c:forEach>
         <div class="row mb-9">
             <div class="col-sm-3"></div>
             <div class="offset-sm-4 col-sm-4 pull-right"></div>
@@ -279,6 +255,7 @@
                 </button>
             </div>
         </div>
+
 
 
     </form>
@@ -310,11 +287,6 @@
 		//초기값을 오늘 날짜로 설정해줘야 합니다.
 		$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
 
-        document.getElementById('detailForm').onsubmit = function() {
-            var selectElement = document.getElementById('dropdownMenu');
-            var allOptions = Array.from(selectElement.options).map(option => option.value).join(',');
-            document.getElementById('allOptions').value = allOptions;
-        };
 	});
 
 

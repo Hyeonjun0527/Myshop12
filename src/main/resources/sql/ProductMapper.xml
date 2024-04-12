@@ -78,7 +78,7 @@
         p.reg_date,
         p.stock_quantity,
         t.tran_status_code
-        FROM product p
+        FROM product p???????
         LEFT JOIN transactionDetail td ON p.prod_no=td.prod_no
         LEFT JOIN transaction t ON td.tran_no=t.tran_no
         <where>

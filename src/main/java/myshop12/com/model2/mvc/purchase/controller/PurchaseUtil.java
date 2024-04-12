@@ -35,7 +35,7 @@ class PurchaseUtil {
         for (Product product : productList) {
             PurchaseDetail purchaseDetail = new PurchaseDetail();
             purchaseDetail.setProduct(product);
-            purchaseDetail.setTypeQuantity(addPurchaseRequestDTO.getTotalCount().get(index));
+            purchaseDetail.setTypeQuantity(addPurchaseRequestDTO.getTypeCountList().get(index));
             purchaseDetail.calculateTypePrice();
             purchaseDetailList.add(purchaseDetail);
             index++;

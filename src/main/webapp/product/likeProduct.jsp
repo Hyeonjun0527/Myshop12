@@ -169,11 +169,21 @@
 <div class="col-md-9">
 </div>
 <c:forEach var="product" items="${products}">
-	<c:set var="prodNoListString" value="${prodNoListString}${product.prodNo}&"/>
+	<c:set var="prodNoListString" value="${prodNoListString}prodNo=${product.prodNo}&"/>
 </c:forEach>
-<div class="col-md-3">
-	<a href="/purchase/addPurchase?prodNo=${prodNoListString}" class="btn btn-primary">모두 구매하기</a>
-</div>
+<c:set var="prodNoListString" value="${prodNoListString.substring(0,prodNoListString.length() - 1)}"/>
+
+
+<c:if test="${pass!=false}">
+    <div class="col-md-3">
+        <a href="/purchase/addPurchase?${prodNoListString}" class="btn btn-primary">모두 구매하기</a>
+    </div>
+</c:if>
+<c:if test="${pass==false}">
+    <div class="col-md-3">
+        <a href="#" class="btn btn-primary">재고가 없으면 구매할 수 없습니다.</a>
+    </div>
+</c:if>
 <script type="text/javascript" src="/js/variousSearch.js"></script>
 <script>
 </script>

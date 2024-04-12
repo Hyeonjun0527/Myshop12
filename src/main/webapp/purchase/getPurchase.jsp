@@ -40,6 +40,9 @@
 		.no-padding{
 			padding: 0;
 		}
+		.mb-4{
+			margin-bottom: 20px;
+		}
 	</style>
 </head>
 
@@ -58,11 +61,13 @@
 <%--		<div class="col-xs-8 col-md-4">구매번호 : ${purchase.tranNo}</div>--%>
 
 		<c:forEach var="purchaseDetail" items="${purchase.purchaseDetailList}">
-			<div class="col-xs-8 col-md-4">구매물품번호 : ${purchaseDetail.detailNo}</div>
-			<div class="col-xs-8 col-md-4">상품이름 : ${purchaseDetail.product.prodName}</div>
-			<div class="col-xs-8 col-md-4">상품번호 : ${purchaseDetail.product.prodNo}</div>
-			<div class="col-xs-8 col-md-4">구매한 개수 : ${purchaseDetail.typeQuantity}</div>
-			<div class="col-xs-8 col-md-4">상품별 가격 : ${purchaseDetail.typePrice}</div>
+			<div class="mb-4">
+				<div class="col-xs-8 col-md-4">구매물품번호 : ${purchaseDetail.detailNo}</div>
+				<div class="col-xs-8 col-md-4">상품이름 : ${purchaseDetail.product.prodName}</div>
+				<div class="col-xs-8 col-md-4">상품번호 : ${purchaseDetail.product.prodNo}</div>
+				<div class="col-xs-8 col-md-4">구매한 개수 : ${purchaseDetail.typeQuantity}</div>
+				<div class="col-xs-8 col-md-4">상품별 가격 : ${purchaseDetail.typePrice}</div>
+			</div>
 		</c:forEach>
 	</div>
 
