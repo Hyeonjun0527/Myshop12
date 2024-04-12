@@ -1,9 +1,4 @@
 
-select * from category;
-select * from users;
-select * from product;
-select * from transaction;
-select * from transactionDetail;
 
 desc transactionDetail;
 desc transaction;
@@ -52,7 +47,8 @@ CREATE TABLE product (
 	price 							NUMBER(10),
 	image_file 					VARCHAR2(100),
 	reg_date 					DATE,
-    stock_quantity            NUMBER DEFAULT 0 NOT NULL,
+    stock_quantity            NUMBER  DEFAULT 0 NOT NULL,
+    CONSTRAINT chk_stock_quantity CHECK (STOCK_QUANTITY >= 0),
 	PRIMARY KEY(prod_no)
 );
 

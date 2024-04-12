@@ -173,6 +173,7 @@ public class ProductController {
         //menu,currentPage,products
         List<Product> products =(List<Product>)(createLikeData.get("products"));
 
+
         int productsSize = products != null ? products.size() : 0;
 
         Page page = new Page(

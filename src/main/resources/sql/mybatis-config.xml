@@ -13,7 +13,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>	
 	
-	<!-- FQCN(Full Qualified Class Name) Alias(별칭관리) -->
+	<!-- FQCN(Full Qualified Class Name) Alias(별칭관리) 여기서 파라미터타입 정해주는거다.-->
 	<typeAliases>
 		<typeAlias alias="user" type="myshop12.com.model2.mvc.user.domain.User" />
 		<typeAlias alias="product" type="myshop12.com.model2.mvc.product.domain.Product" />

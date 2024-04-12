@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <html>
@@ -126,52 +127,77 @@
             <div class="col-sm-3"></div>
             <label for="prodNo" class="offset-sm-2 col-sm-2 col-form-label font-size">상품번호</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodNo" name="prodNo" value="${product.prodNo}" readonly>
+                <select name="prodNo" class="form-control" id="prodNo" readonly>
+                <c:forEach var="product" items="${productList}">
+                        <option value="${product.prodNo}">${product.prodNo}</option>
+                </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="prodName" class="offset-sm-2 col-sm-2 col-form-label font-size">상품명</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodName" name="prodName" value="${product.prodName}"
-                       readonly>
+                <select name="prodName" class="form-control" id="prodName" readonly>
+                    <c:forEach var="product" items="${productList}">
+                        <option value="${product.prodName}">${product.prodName}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="prodDetail" class="offset-sm-2 col-sm-2 col-form-label font-size">상품상세정보</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="prodDetail" name="prodDetail" value="${product.prodDetail}"
-                       readonly>
+            <select name="prodDetail" class="form-control" id="prodDetail" readonly>
+                <c:forEach var="product" items="${productList}">
+                    <option value="${product.prodDetail}">${product.prodDetail}</option>
+                </c:forEach>
+            </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="manuDate" class="offset-sm-2 col-sm-2 col-form-label font-size">제조일자</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="manuDate" name="manuDate" value="${product.manuDate}"
-                       readonly>
+                <select name="manuDate" class="form-control" id="manuDate" readonly>
+                    <c:forEach var="product" items="${productList}">
+                        <option value="${product.manuDate}">${product.manuDate}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="price" class="offset-sm-2 col-sm-2 col-form-label font-size">가격</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="price" name="price" value="${product.price}" readonly>
+                <select name="price" class="form-control" id="price" readonly>
+                    <c:forEach var="product" items="${productList}">
+                        <option value="${product.price}">${product.price}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="stockQuantity" class="offset-sm-2 col-sm-2 col-form-label font-size">재고</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="stockQuantity" name="stockQuantity" value="${product.stockQuantity}" readonly>
+                <select name="stockQuantity" class="form-control" id="stockQuantity" readonly>
+                    <c:forEach var="product" items="${productList}">
+                        <option value="${product.stockQuantity}">${product.stockQuantity}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
             <div class="col-sm-3"></div>
             <label for="regDate" class="offset-sm-2 col-sm-2 col-form-label font-size">등록일자</label>
             <div class="col-sm-5">
-                <input type="text" class="form-control" id="regDate" name="userId" value="${product.regDate}" readonly>
+                <select name="regDate" class="form-control" id="regDate" readonly>
+                    <c:forEach var="product" items="${productList}">
+                        <option value="${product.regDate}">${product.regDate}</option>
+                    </c:forEach>
+                </select>
             </div>
         </div>
         <div class="row mb-4">
@@ -283,6 +309,12 @@
 
 		//초기값을 오늘 날짜로 설정해줘야 합니다.
 		$('#datepicker').datepicker('setDate', 'today'); //(-1D:하루전, -1M:한달전, -1Y:일년전), (+1D:하루후, -1M:한달후, -1Y:일년후)
+
+        document.getElementById('detailForm').onsubmit = function() {
+            var selectElement = document.getElementById('dropdownMenu');
+            var allOptions = Array.from(selectElement.options).map(option => option.value).join(',');
+            document.getElementById('allOptions').value = allOptions;
+        };
 	});
 
 

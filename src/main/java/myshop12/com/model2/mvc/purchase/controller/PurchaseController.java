@@ -103,13 +103,20 @@ public class PurchaseController {
                 , Collections.singletonMap("purchase", addPurchaseRequestDTO));
 
     }
-    @GetMapping("/addPurchase")
-    public ModelAndView addPurchaseView(@RequestParam("prodNo") int prodNo) throws Exception {
+//    @PostMapping("/addPurchaseList")
+
+//    @RequestMapping(value = "/addPurchase", method = RequestMethod.GET)
+    @GetMapping(value = "/addPurchase")
+    public ModelAndView addPurchaseView(@RequestParam("prodNo") List<Integer> prodNoList) throws Exception {
         System.out.println("/addPurchaseView");
 
+        List<Product> productList = new ArrayList<>();
+        for (int prodNo : prodNoList) {
+            Product product = productService.getProduct(prodNo);
+            productList.add(product);
+        }
         Map<String, Object> model = new HashMap<>();
-        model.put("product", productService.getProduct(prodNo));
-
+        model.put("productList", productList);
         return new ModelAndView(
                 "forward:/purchase/addPurchaseView.jsp",
                 model);
@@ -168,26 +175,33 @@ public class PurchaseController {
 
         Optional<Map<String, Object>> optionalMap = Optional.ofNullable(purchaseService.getPurchaseList(materials));
 
-        System.out.println("map값 :: " + optionalMap);
+        System.out.println("map값 :: " + optionalMap);//
 
         //널이였을때 대체동작
         Map<String, Object> map = optionalMap.orElseGet(() -> {
             Map<String, Object> emptyMap = new HashMap<>();
             emptyMap.put("count", 0);
-            emptyMap.put("purchase", new Purchase());
+            emptyMap.put("list", new ArrayList<Purchase>());
             return emptyMap;
         });
 
-        Map<String, Object> finalMap = map;
+        final Map<String, Object> finalMap = map;
         map = Optional.ofNullable(user.getRole())
                 .map(role -> {
                     if (role.equals("user")) {
                         System.out.println("ListPurchaseAction :: 유저");
                         return finalMap;
-                    } else {
+                    } else if(role.equals("admin")){
                         System.out.println("ListPurchaseAction :: 관리자");
-//                        return purchaseService.getSaleList(search);
-                        return null;
+                        try {
+                            Map<String,Object> material = new HashMap<>();
+                            material.put("search", search);
+                            return purchaseService.getSaleList(material);
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    } else{
+                        return finalMap;
                     }
                 })
                 .orElse(map);
@@ -206,6 +220,7 @@ public class PurchaseController {
 
         System.out.println("listPurchase :: 가 끝났습니다..");
 
+        //포워드하므로 헤더,바디,쿼리파라미터가 유지된다.
         return new ModelAndView("forward:/purchase/listPurchase.jsp", model);
     }
 
@@ -277,19 +292,14 @@ public class PurchaseController {
 
         System.out.println("updateTranCode가 끝났습니다...");
 
-        if(navigationPage.equals("listProduct")) {
-            if(menu.equals("manage")) {
-                System.out.println( "redirect:/purchase/listProduct?menu=manage"+"합니다.");
-                viewName = "redirect:/product/listProduct?menu=manage";
-            }
-        }else if(navigationPage.equals("listPurchase")){
-
+        if(navigationPage.equals("listPurchase")){
             if(menu.equals("search")) {
                 System.out.println("redirect:/listPurchase?menu=search"+"합니다.");
                 viewName =  "redirect:/purchase/listPurchase?menu=search";
+            }else if(menu.equals("manage")){
+                System.out.println("redirect:/listPurchase?menu=manage"+"합니다.");
+                viewName = "redirect:/purchase/listPurchase?menu=manage";
             }
-        }else {
-
         }
 
         return new ModelAndView(viewName, map);

@@ -45,6 +45,13 @@ public class ProductDaoImpl implements ProductDao {
 		List<Product> list = sqlSession.selectList("ProductMapper.getProductList", search);
 		int totalCount = sqlSession.selectOne("ProductMapper.getTotalCount", search);
 
+		for(Product p : list) {
+			if(p.getStockQuantity()==0){
+				p.setProTranCode("b");//판매불가
+			}else{
+				p.setProTranCode("a");//판매중
+			}
+		}
 		System.out.println("ProductDaoImpl.getProductList()::"+list);
 
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -65,7 +65,7 @@
 		                     </a>
 		                     <ul class="dropdown-menu">
 		                         <li><a href="#">판매상품등록</a></li>
-		                         <li><a href="#">판매상품관리</a></li>
+								 <li><a href="#">판매상품관리</a></li>
 		                         <li class="divider"></li>
 		                         <li><a href="#">etc..</a></li>
 		                     </ul>
@@ -79,11 +79,14 @@
 	                         <span class="caret"></span>
 	                     </a>
 	                     <ul class="dropdown-menu">
-	                         <li><a href="#">상 품 검 색</a></li>
-	                         
-	                         <c:if test="${sessionScope.user.role == 'user'}">
-	                           <li><a href="#">구매이력조회</a></li>
-	                         </c:if>
+							 <c:if test="${sessionScope.user.role == 'user'}">
+								 <li><a href="#">구매이력조회</a></li>
+								 <li><a href="#">상 품 검 색</a></li>
+							 </c:if>
+							 <c:if test="${sessionScope.user.role == 'admin'}">
+								 <li><a href="#">판매이력조회</a></li>
+								 <li><a href="#">상 품 검 색(회원 뷰 확인)</a></li>
+							 </c:if>
 	                         
 	                         <li><a href="#">최근 본 상품</a></li>
 	                         <li class="divider"></li>

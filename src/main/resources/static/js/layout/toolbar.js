@@ -39,6 +39,12 @@ function histories() {
 			//Debug..
 			self.location = "/product/listProduct?menu=search";
 		});
+		$( "a:contains('상 품 검 색(회원 뷰 확인)')" ).on("click" , function() {
+			//Debug..
+			self.location = "/product/listProduct?menu=search";
+		});
+
+
 		//판매이력조회
 		$( "a:contains('판매이력조회')" ).on("click" , function() {
 			//Debug..

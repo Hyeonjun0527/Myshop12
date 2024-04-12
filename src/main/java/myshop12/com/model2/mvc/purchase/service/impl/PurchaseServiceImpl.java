@@ -98,8 +98,23 @@ public class PurchaseServiceImpl implements PurchaseService {
         return map2;
     }
 
-    public Map<String, Object> getSaleList(Search search) throws Exception {
-        return purchaseDao.getSaleList(search);
+    public Map<String,Object> getSaleList(Map<String,Object> map) throws Exception {
+        System.out.println("service에서 받은 map값 :: " + map);
+        List<Map<String,Object>> list = purchaseDao.getSaleList(map);
+        System.out.println("Dao에서 온 list값 :: " + list);
+        List<Purchase> purchaseList = null;
+        int count = 0;
+        if(!list.isEmpty()) {
+            count = ((BigDecimal) list.get(0).get("count")).intValue();
+            purchaseList = new ArrayList<Purchase>();
+            for (Map<String, Object> purchaseMap : list) {
+                purchaseList.add((Purchase) purchaseMap.get("purchase"));
+            }
+        }
+        Map<String,Object> map2 = new HashMap<String,Object>();
+        map2.put("list", purchaseList);
+        map2.put("count", count);
+        return map2;
     }
     public Purchase updatePurchase(Purchase purchase) throws Exception {
         purchaseDao.updatePurchase(purchase);

@@ -25,6 +25,22 @@
 		<%--	..으로 상대경로로 경로지정.--%>
 	</script>
 	<link rel="stylesheet" href="/css/font.css" type="text/css">
+	<style>
+		body {
+			padding-top: 50px;
+		}
+		.size-set{
+			width:1140px;
+			margin-left: 15px;
+		}
+		.max-size {
+			max-width: 100px !important;
+			max-height: 100px !important;
+		}
+		.no-padding{
+			padding: 0;
+		}
+	</style>
 </head>
 
 <body class="default-font">

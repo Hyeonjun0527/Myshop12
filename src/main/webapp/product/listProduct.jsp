@@ -179,21 +179,11 @@
                     <td align="left">${product.regDate}</td>
                     <c:if test="${product.proTranCode!=null}">
 
-                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '판매중' : ''}"/>
+                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '재고있음' : ''}"/>
+                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '재고없음' : ''}"/>
 
-                    <c:if test="${menu == 'manage' || menu == 'ok'}">
-                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '판매완료' : ''}"/>
-                        <c:set var="resultB2" value="${product.proTranCode.trim() == 'b' ? '배송하기' : ''}"/>
-                        <c:set var="resultC" value="${product.proTranCode.trim() == 'c' ? '배송중' : ''}"/>
-                        <c:set var="resultD" value="${product.proTranCode.trim() == 'd' ? '배송완료' : ''}"/>
-                    </c:if>
                     <td align="left">
                             ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
-                    <c:if test="${!(menu == 'manage' || menu == 'ok')}">
-                        <c:if test="${!(menu == 'manage' || menu == 'ok')&&product.proTranCode.trim()!='a'}">
-                            판매완료
-                        </c:if>
-                    </c:if>
                         <span class="clickableSpan" data-update
                               data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
                     </td>

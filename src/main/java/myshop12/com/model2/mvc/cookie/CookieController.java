@@ -237,6 +237,7 @@ public class CookieController {
                             for (String likesElement : likes) {
                                 if (!likesElement.equals("")) {
                                     Product product = productService.getProduct(Integer.parseInt(likesElement));
+                                    product.setProTranCode(product.getStockQuantity() == 0 ? "b" : "a");
                                     products.add(product);
                                 } // IF
                             } // FOR

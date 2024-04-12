@@ -101,13 +101,13 @@
 		u.CELL_PHONE ,
 		u.ADDR ,
 		u.EMAIL ,
-		u.REG_DATE user_reg_date,
+		u.REG_DATE,
 		td.DETAIL_NO ,
 		td.TYPE_QUANTITY,
-		td.TYPE_PRICE,
+		td.TYPE_PRICE
 		FROM TRANSACTION t
 		JOIN USERS u ON t.buyer_id = u.user_id
-		JOIN TRANSACTION_DETAIL td ON t.TRAN_NO = td.TRAN_NO
+		JOIN TRANSACTIONDETAIL td ON t.TRAN_NO = td.TRAN_NO
 		JOIN PRODUCT p ON td.PROD_NO = p.PROD_NO
 		WHERE t.TRAN_NO=#{tranNo}
 	</select>
@@ -178,7 +178,7 @@
 						 td.TYPE_QUANTITY                       AS type_quantity,
 						 td.TYPE_PRICE                          AS type_price,
 						 COUNT(*) OVER ()                       AS count,
-						 ROW_NUMBER() OVER (ORDER BY t.TRAN_NO) AS row_seq
+						 DENSE_RANK() OVER (ORDER BY t.TRAN_NO ASC) AS row_seq
 		FROM (SELECT t.TRAN_NO          AS tran_no,
 			t.BUYER_ID         AS buyer_id,
 			t.PAYMENT_OPTION   AS payment_option,
@@ -192,6 +192,52 @@
 			t.TOTAL_PRICE      AS total_price
 			FROM TRANSACTION t
 			WHERE t.BUYER_ID = #{map.user.userId}
+			ORDER BY t.TRAN_NO) t
+			INNER JOIN TRANSACTIONDETAIL td ON t.TRAN_NO = td.TRAN_NO
+			INNER JOIN PRODUCT P ON td.PROD_NO = p.PROD_NO)
+		SELECT *
+		FROM result
+		WHERE
+			result.row_seq BETWEEN #{map.search.startRowNum} AND #{map.search.endRowNum}
+	</select>
+	<select id="getSaleList" parameterType="map" resultMap="purchaseSelectMap">
+		WITH result AS
+				 (SELECT t.tran_no,
+						 t.buyer_id,
+						 t.payment_option,
+						 t.receiver_name,
+						 t.receiver_phone,
+						 t.dlvy_addr,
+						 t.dlvy_request,
+						 t.tran_status_code,
+						 t.order_date,
+						 t.dlvy_date,
+						 t.total_price,
+						 p.PROD_NAME                            AS prod_name,
+						 p.PROD_DETAIL                          AS prod_detail,
+						 p.MANUFACTURE_DAY                      AS manufacture_day,
+						 p.PRICE                                AS price,
+						 p.IMAGE_FILE                           AS image_file,
+						 p.REG_DATE                             AS reg_date,
+						 p.STOCK_QUANTITY                       AS stock_quantity,
+						 td.DETAIL_NO                           AS detail_no,
+						 td.PROD_NO                             AS prod_no,
+						 td.TYPE_QUANTITY                       AS type_quantity,
+						 td.TYPE_PRICE                          AS type_price,
+						 COUNT(*) OVER ()                       AS count,
+			DENSE_RANK() OVER (ORDER BY t.TRAN_NO ASC) AS row_seq
+		FROM (SELECT t.TRAN_NO          AS tran_no,
+			t.BUYER_ID         AS buyer_id,
+			t.PAYMENT_OPTION   AS payment_option,
+			t.RECEIVER_NAME    AS receiver_name,
+			t.RECEIVER_PHONE   AS receiver_phone,
+			t.DEMAILADDR       AS dlvy_addr,
+			t.DLVY_REQUEST     AS dlvy_request,
+			t.TRAN_STATUS_CODE AS tran_status_code,
+			t.ORDER_DATE       AS order_date,
+			t.DLVY_DATE        AS dlvy_date,
+			t.TOTAL_PRICE      AS total_price
+			FROM TRANSACTION t
 			ORDER BY t.TRAN_NO) t
 			INNER JOIN TRANSACTIONDETAIL td ON t.TRAN_NO = td.TRAN_NO
 			INNER JOIN PRODUCT P ON td.PROD_NO = p.PROD_NO)
