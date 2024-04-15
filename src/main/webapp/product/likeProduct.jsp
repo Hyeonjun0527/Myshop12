@@ -116,39 +116,40 @@
             </tr>
             </thead>
 
-            <c:set var="i" value="0"/>
-            <c:forEach var="product" items="${products}">
+            <c:if test="${products!=null}">
+                <c:set var="i" value="0"/>
+                <c:forEach var="product" items="${products}">
 
-                <c:set var="i" value="${i+1 }"/>
-                <tr class="ct_list_pop">
-                    <td align="left">
-                            ${i}&emsp;&emsp;
-                        <button class="btn btn-primary">
-                            <div style="text-align: center;" class="delete_one">
-                                삭제
-                            </div>
-                        </button>
-                    </td>
+                    <c:set var="i" value="${i+1 }"/>
+                    <tr class="ct_list_pop">
+                        <td align="left">
+                                ${i}&emsp;&emsp;
+                            <button class="btn btn-primary">
+                                <div style="text-align: center;" class="delete_one">
+                                    삭제
+                                </div>
+                            </button>
+                        </td>
 
-                    <c:if test="${!(product.proTranCode=='a')}">
-                    <td align="left" data-getProduct="${product.prodNo}">${product.prodName}</td>
-                    </c:if>
-                    <c:if test="${product.proTranCode=='a'}">
-                    <td align="left">${product.prodName}</td>
-                    </c:if>
-                    <td align="left">${product.price }</td>
-                    <td align="left">${product.stockQuantity}</td>
-                    <td align="left">${product.regDate}</td>
-                    <c:if test="${product.proTranCode!=null}">
-                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '재고있음' : ''}"/>
-                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '재고없음' : ''}"/>
-                    <td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
-                            <%--<span class="update">${resultB2}</span>--%>
+                        <c:if test="${!(product.proTranCode=='a')}">
+                        <td align="left" data-getProduct="${product.prodNo}">${product.prodName}</td>
                         </c:if>
-                <tr/>
+                        <c:if test="${product.proTranCode=='a'}">
+                        <td align="left">${product.prodName}</td>
+                        </c:if>
+                        <td align="left">${product.price }</td>
+                        <td align="left">${product.stockQuantity}</td>
+                        <td align="left">${product.regDate}</td>
+                        <c:if test="${product.proTranCode!=null}">
+                            <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '구매가능' : ''}"/>
+                            <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '구매불가' : ''}"/>
+                        <td align="left">${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
+                                <%--<span class="update">${resultB2}</span>--%>
+                            </c:if>
+                    <tr/>
 
-            </c:forEach>
-
+                </c:forEach>
+            </c:if>
         </table>
 
     </form>
@@ -168,11 +169,12 @@
 </div>
 <div class="col-md-9">
 </div>
-<c:forEach var="product" items="${products}">
-	<c:set var="prodNoListString" value="${prodNoListString}prodNo=${product.prodNo}&"/>
-</c:forEach>
-<c:set var="prodNoListString" value="${prodNoListString.substring(0,prodNoListString.length() - 1)}"/>
-
+<c:if test="${products!=null}">
+    <c:forEach var="product" items="${products}">
+        <c:set var="prodNoListString" value="${prodNoListString}prodNo=${product.prodNo}&"/>
+    </c:forEach>
+    <c:set var="prodNoListString" value="${prodNoListString.substring(0,prodNoListString.length() - 1)}"/>
+</c:if>
 
 <c:if test="${pass!=false}">
     <div class="col-md-3">

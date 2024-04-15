@@ -70,30 +70,17 @@ function makeThumbnail(JsonData) {
                         <h3>상품명 : ${product.prodName}</h3>
                         <p>상품설명 : </p>
                         <p>가격 : ${product.price}</p>
+                        
+                        <p>남은 수량 : ${product.stockQuantity}</p>
             `;
 
             if (product.proTranCode != null) {
-                let resultA = product.proTranCode.trim() === 'a' ? '판매중' : '';
-                let resultB = product.proTranCode.trim() === 'b' ? '판매완료' : '';
-                let resultB2 = ``;
-                let resultC =``;
-                let resultD = ``;
-                if (menu === 'manage' || menu === 'ok') {
-                    resultB2 = product.proTranCode.trim() === 'b' ? '배송하기' : '';
+                let resultA = product.proTranCode.trim() === 'a' ? '구매가능' : '';
+                let resultB = product.proTranCode.trim() === 'b' ? '구매불가' : '';
 
-                    resultC = product.proTranCode.trim() === 'c' ? '배송중' : '';
-                    resultD = product.proTranCode.trim() === 'd' ? '배송완료' : '';
-                }
                 returnPage += `
                 <p>현재상태 : 
                 ${resultA}${resultB}${(resultB) ? `&nbsp;&nbsp;` : ``}
-                `;
-                if(!(menu == 'manage' || menu == 'ok')&&product.proTranCode.trim()!='a'){
-                    returnPage += `판매완료`;
-                }
-                returnPage +=`
-                <span class="clickableSpan" data-update
-                                  data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
                 </p>
                 `;
             }//end of if

@@ -21,6 +21,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 @Controller
 @RequestMapping("/product/*")
@@ -171,16 +172,25 @@ public class ProductController {
         Map<String,Object> createLikeData = (Map<String, Object>)request.getAttribute("createLikeData");
 
         //menu,currentPage,products
-        List<Product> products =(List<Product>)(createLikeData.get("products"));
+        //true면 구매 가능하도록 만듬
+        AtomicReference<String> pass = new AtomicReference<>("true");
+        System.out.println("createLikeData");
+        System.out.println(createLikeData);
 
-        for (Product product : products) {
-            if(product.getStockQuantity()==0){
-                model.addAttribute("pass","false");
-            }
-        }
+        Optional<List<Product>> optionalProducts = Optional.ofNullable((List<Product>)(createLikeData.get("products")));
+        System.out.println("optionalProducts");
+        System.out.println(optionalProducts);
+
+        optionalProducts.ifPresentOrElse(products->
+                {
+                    boolean condition = products.isEmpty()||products.stream().anyMatch(product -> product.getStockQuantity() == 0);
+                    pass.set(condition ? "false" : "true");
+                }, () -> pass.set("false"));
+
+        model.addAttribute("pass",pass.get());
 
 
-        int productsSize = products != null ? products.size() : 0;
+        int productsSize = optionalProducts.map(List::size).orElse(0);
 
         Page page = new Page(
                 currentPage,
@@ -189,11 +199,11 @@ public class ProductController {
                 pageSize);
 
         System.out.println("ListProductAction ::" + page);
-        System.out.println("products :: " + products);
+        System.out.println("products :: " + optionalProducts.orElseGet(ArrayList::new));
 
         //Model 과 View 연결
         model.addAttribute("totalCount", productsSize);
-        model.addAttribute("products",products);
+        model.addAttribute("products",optionalProducts.orElseGet(ArrayList::new));
         model.addAttribute("search",search);
         model.addAttribute("resultPage", page);
         model.addAttribute("menu", menu);

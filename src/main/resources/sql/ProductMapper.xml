@@ -16,7 +16,6 @@
         <result property="fileName" column="image_file" jdbcType="VARCHAR"/>
         <result property="regDate" column="reg_date" jdbcType="DATE"/>
         <result property="stockQuantity" column="stock_quantity" jdbcType="NUMERIC"/>
-        <result property="proTranCode" column="tran_status_code" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!-- SQL : INSERT 제너레이트 키로 도메인에 "자동"할당 해준다. 나는 도메인 건드린 적 없지만 속성이 변경되어있음-->
@@ -66,8 +65,7 @@
 
     <!-- SQL : SELECT LIST -->
     <select id="getProductList" parameterType="search" resultMap="productSelectMap">
-        SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,stock_quantity,
-        COALESCE(tran_status_code, 'a') AS tran_status_code
+        SELECT prod_no, prod_name,prod_detail, manufacture_day, price, image_file, reg_date,stock_quantity
         FROM ( SELECT inner_table.* , ROWNUM AS row_seq
         FROM ( SELECT p.prod_no,
         p.prod_name,
@@ -76,11 +74,8 @@
         p.price,
         p.image_file,
         p.reg_date,
-        p.stock_quantity,
-        t.tran_status_code
-        FROM product p???????
-        LEFT JOIN transactionDetail td ON p.prod_no=td.prod_no
-        LEFT JOIN transaction t ON td.tran_no=t.tran_no
+        p.stock_quantity
+        FROM product p
         <where>
             <if test="searchKeyword != null">
                 <if test="searchCondition != null">
@@ -156,11 +151,8 @@
         p.price,
         p.image_file,
         p.reg_date,
-        p.stock_quantity,
-        t.tran_status_code
+        p.stock_quantity
         FROM product p
-        LEFT JOIN transactionDetail td ON p.prod_no=td.prod_no
-        LEFT JOIN transaction t ON td.tran_no=t.tran_no
         <if test="searchCondition != null">
             <where>
                 <if test="searchCondition == 0 and searchKeyword !='' ">

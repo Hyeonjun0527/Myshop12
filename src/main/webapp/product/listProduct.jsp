@@ -179,13 +179,11 @@
                     <td align="left">${product.regDate}</td>
                     <c:if test="${product.proTranCode!=null}">
 
-                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '재고있음' : ''}"/>
-                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '재고없음' : ''}"/>
+                        <c:set var="resultA" value="${product.proTranCode.trim() == 'a' ? '구매가능' : ''}"/>
+                        <c:set var="resultB" value="${product.proTranCode.trim() == 'b' ? '구매불가' : ''}"/>
 
                     <td align="left">
                             ${resultA}${resultB}${(!empty resultB) ? '&nbsp;&nbsp;' : ''}
-                        <span class="clickableSpan" data-update
-                              data-prodNo="${product.prodNo}">${resultB2}</span>${resultC}${resultD}
                     </td>
                     </c:if>
                     <td>
