@@ -120,6 +120,7 @@ public class UserController {
 	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
 
 		System.out.println("/user/login : POST");
+		System.out.println("user :: " + user);
 		//Business Logic
 		User dbUser=userService.getUser(user.getUserId());
 
