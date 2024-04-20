@@ -130,7 +130,7 @@ public class ProductController {
     }//end of getProduct
 
     //클라-searchBoundFirst,searchBoundEnd,currentPage,search,menu,products,page
-    //currentPage의
+    //Integer를 이렇게 등록했을때 String 값이 오면 에러가 난다. 하지만 Converter를 등록해줄 수 있다.
     @RequestMapping("/likeProduct")
     public String likeProduct(@ModelAttribute("search") Search search,
                               @RequestParam(value = "menu",required = false) String menu,
@@ -138,6 +138,7 @@ public class ProductController {
                               @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
                               Model model,
                               HttpServletRequest request) throws Exception {
+
         //search,searchBoundFirst,End는 스스로 안에서 페이지 이동할때의 경우임.
 
 
@@ -329,7 +330,8 @@ public class ProductController {
                                  HttpServletResponse response,
                                  @RequestParam("prodNo") int prodNo,
                                  @RequestParam("menu") String menu,
-                                 @RequestParam("currentPage") int currentPage,
+                                 @RequestParam("currentPage") final int currentPage,
+                                 @RequestParam(value = "navigation", required = false) String navigation,
                                  @CookieValue(name = "like", required = false) String likeCookie,
                                  Model model) throws Exception {
         System.out.println("/////////////////////////////////////////////////////////////setLikeProduct이 시작됩니다..");
@@ -372,7 +374,21 @@ public class ProductController {
         System.out.println("//////////////////////////////////////////////////////////////setLikeProduct이 끝났습니다..");
         System.out.println("forward:/product/listProduct?menu=search" + "합니다.");
         //어차피 찜리스트는 관리자는 실행할 수 없도록 해놓았음.
-        return "forward:/product/listProduct"+"?currentPage="+currentPage;
+
+        //navigation이 null이면 표로 listProductImg.jsp면 이미지로 해야한다.
+        //옵셔널의 filter.map.orElse패턴 사용하면 댐.
+        //filter로 널처리. 널 아닌것만 가져옴
+        //if else인 동시에 값 할당이니 삼항연산자 사용하면 댐
+        //상수.equals(변수)패턴 사용하면 댐
+
+        //"forward:/product/listProduct"+"?currentPage="+currentPage
+        return Optional.ofNullable(navigation)
+                .filter(nav->nav!=null&&!nav.isEmpty())
+                .map(nav->"listProductImage.jsp".equals(nav) ? "forward:/product/listProduct?menu="+menu+"&image=ok" : "forward:/product/listProduct"+"?currentPage="+currentPage)
+                .orElseGet(()-> "forward:/product/listProduct?currentPage="+currentPage);
+
+
+
     }//end of SetLikeProduct
 
     @PostMapping("/updateProduct")

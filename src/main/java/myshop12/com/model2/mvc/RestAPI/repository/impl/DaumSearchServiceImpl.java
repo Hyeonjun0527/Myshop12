@@ -26,7 +26,7 @@ public class DaumSearchServiceImpl implements DaumSearchService {
 
     public Mono<String> searchImage(String keyword) throws Exception {
 //        String encodedKeyword = URLEncoder.encode(keyword, "UTF-8");
-        String path = "/v2/search/image?query=" + keyword + "&page=1&size=1";
+        String path = "/v2/search/image?query=" + keyword + "&page=3&size=1";
         System.out.println(path);
         System.out.println("apiKey :: "+apiKey);
 

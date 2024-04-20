@@ -2,7 +2,12 @@ package myshop12.com.model2.mvc.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
+import org.aspectj.lang.annotation.Aspect;
+import org.springframework.stereotype.Component;
 
+
+@Aspect
+@Component
 public class ControllerLogAspect {
     private static final String RESET = "\u001B[0m";
     private static final String RED = "\u001B[91m";

@@ -208,7 +208,9 @@ public class PurchaseController {
                 .orElse(map);
 
         List<Purchase> purchaseList = (List<Purchase>) map.get("list");
-        int totalCount = purchaseList.size();
+        int totalCount = Optional.ofNullable(purchaseList)
+                .map(List::size)
+                .orElse(0);
         System.out.println("totalCount");
         System.out.println(totalCount);
         System.out.println("purchaseList");

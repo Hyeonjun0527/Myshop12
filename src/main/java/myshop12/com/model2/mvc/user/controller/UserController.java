@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Map;
+import java.util.Optional;
 
 
 //==> 회원관리 Controller
@@ -117,16 +118,43 @@ public class UserController {
 
 	//@RequestMapping("/login.do")
 	@RequestMapping( value="login", method=RequestMethod.POST )
-	public String login(@ModelAttribute("user") User user , HttpSession session ) throws Exception{
+	public String login(@ModelAttribute("user") User user ,
+						HttpSession session ) throws Exception{
 
 		System.out.println("/user/login : POST");
 		System.out.println("user :: " + user);
 		//Business Logic
-		User dbUser=userService.getUser(user.getUserId());
+		Optional<User> OptionalDBUser=Optional.ofNullable(userService.getUser(user.getUserId()));
 
-		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);
-		}
+		//dbUser가 있으면 비번검증후 세션셋하고 없으면 아무것도 안함
+		//패스워드가 user객체의 패스워드와 같으면 세션셋.
+
+		//map filter 값이 있을때만 수행 없으면 빈 Optional 리턴. 리턴타입 Optional<T>
+		//ifPresent 값이 있을때만 수행 없으면 아무것도 수행하지 않음. 리턴타입 Void
+		//orElse은 Optional벗기고, 값이 있으면 리턴 없으면 설정한 값 리턴타입 T
+
+		//값변형하고 싶어. map
+		//걸러내고싶어.(조건 만족하면 값변형X리턴하고 싶어) filter
+		//Optional 벗기고싶어. ofElse
+		//함수실행하고 싶어. ifPresent
+
+		//나는 지금
+		//user로부터 패스워드 얻고 싶어. map
+		//Optional 벗기고 싶어 . ofElse
+		OptionalDBUser.filter(dbUser -> dbUser.getPassword().equals(
+						Optional.ofNullable(user)
+								.map(User::getPassword)
+								.orElse("")))
+				.ifPresent(dbUser -> session.setAttribute("user", dbUser));
+
+//		이것도 같은코드임.
+//		OptionalDBUser.ifPresentOrElse((dbUser)->{
+//				if(dbUser.getPassword().equals(
+//						Optional.ofNullable(user)
+//								.map(User::getPassword)
+//								.orElse(""))) session.setAttribute("user",dbUser)},
+//						()->{}
+//		);
 
 		return "redirect:/index.jsp";
 	}

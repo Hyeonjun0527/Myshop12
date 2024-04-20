@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,7 +46,8 @@ public class RestAPIController {
 //        String returnValue = String.valueOf(daumSearchService.searchImage("류현진"));
         //얘가 리턴하는게 Mono<String>이라서 String으로 변환해줘야함
         //subscribe의 역할은 Mono가 가지고 있는 값을 꺼내서 사용하는 것
-        String resultValue  = daumSearchService.searchImage(daumSearch.getName())
+        //Mono에는 map함수가 있음.
+        List<String> resultList  = daumSearchService.searchImage(daumSearch.getName())
                 .map(
                         result -> {
                             System.out.println("result : " + result);
@@ -53,14 +55,18 @@ public class RestAPIController {
                             JSONArray documents = (JSONArray) jsonObject.get("documents");
                             JSONObject document = (JSONObject) documents.get(0);
                             String imageUrl = (String) document.get("image_url");
+                            String thumbnail_url = (String) document.get("thumbnail_url");
                             System.out.println("imageUrl : " + imageUrl);
-                            return imageUrl;
+                            System.out.println("thumbnail_url : " + thumbnail_url);
+                            return List.of(imageUrl,thumbnail_url);
+
                         }
                 ).block();
 
 
-        System.out.println("resultValue :: "+resultValue);
-        daumSearch.setImageUrl(resultValue);
+        System.out.println("resultValue :: "+resultList);
+        daumSearch.setImageUrl(resultList.get(0));
+        daumSearch.setThumbnailUrl(resultList.get(1));
         //엔트리포인트에서 그 복잡한 json중에 속성값 하나 꺼내서..
 
         //resultValue

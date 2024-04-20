@@ -19,9 +19,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import myshop12.com.model2.mvc.user.domain.User;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 //public class LogonCheckInterceptor extends HandlerInterceptorAdapter { 디프리케잇에서 이제 이거 쓰지도 못함.
+@Component
 public class LogonCheckInterceptor implements HandlerInterceptor {
 	///Field
 	
@@ -66,6 +68,13 @@ public class LogonCheckInterceptor implements HandlerInterceptor {
 			//==> 미 로그인한 화원이라면...
 			//==> 로그인 시도 중.....
 			String uri = request.getRequestURI();
+
+			System.out.println("uri\n" + uri);
+
+			if(uri.contains("/rest/json/searchImage")){
+				return true;
+			}
+
 			if(		uri.indexOf("addUserView") != -1 	|| 	uri.indexOf("addUser") != -1 ||
 					uri.indexOf("loginView") != -1 			||	uri.indexOf("login") != -1 		||
 					uri.indexOf("checkDuplication") != -1 ){

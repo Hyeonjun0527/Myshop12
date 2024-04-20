@@ -20,7 +20,9 @@
                 }
             });
             int finalMaxInt = maxInt.get();
-            request.setAttribute("maxInt", finalMaxInt);
+            System.out.println(finalMaxInt);
+            int realFinalMaxInt = finalMaxInt<=0 ? 1 : finalMaxInt;
+            request.setAttribute("maxInt", realFinalMaxInt);
 %>
 <html>
 <head>

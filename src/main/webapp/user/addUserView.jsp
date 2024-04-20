@@ -79,7 +79,7 @@
 		<div class="row mb-3">
 			<label for="userName" class="offset-sm-2 col-sm-1 col-form-label">이름</label>
 			<div class="col-sm-4">
-				<input type="password" class="form-control" id="userName" name="userName" placeholder="회원이름">
+				<input type="text" class="form-control" id="userName" name="userName" placeholder="회원이름">
 			</div>
 		</div>
 

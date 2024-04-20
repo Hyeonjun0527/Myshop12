@@ -298,7 +298,7 @@
 
         $(document).on('click', 'button[data-setLike]', function () {
             let prodNo = $(this).data('prodno');
-            window.location.href = "/product/setLikeProduct?prodNo=" + prodNo + "&menu=${menu}&currentPage=${resultPage.currentPage}";
+            window.location.href = "/product/setLikeProduct?prodNo=" + prodNo + "&menu=${menu}&currentPage=${resultPage.currentPage}&navigation=listProductImage.jsp";
         });
 
         $(document).on('click', 'input[name=searchType]', function () {

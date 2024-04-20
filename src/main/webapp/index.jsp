@@ -198,8 +198,11 @@
               }
       ).done(function(data,status,xhr){
         //받은 데이터는 제이슨일거야.
+        console.log(data);
         console.log("받은 데이터 : " + data.imageUrl);
-        $("#daumImage").prop("src", data.imageUrl);
+        // $("#daumImage").prop("src", data.imageUrl);
+        console.log("썸네일 데이터 : " + data.thumbnailUrl);
+        $("#daumImage").prop("src",data.imageUrl);
       }).fail(function(xhr, status, error) {
         console.log("요청 실패: " + status + ", " + error);
       });
