@@ -336,7 +336,6 @@
 				document.getElementById("sample6_detailAddress").focus();
 			}
 		}).open();
-
 	}
 </script>
 </body>

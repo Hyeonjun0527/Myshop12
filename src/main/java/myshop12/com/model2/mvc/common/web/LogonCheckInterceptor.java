@@ -72,6 +72,7 @@ public class LogonCheckInterceptor implements HandlerInterceptor {
 			System.out.println("uri\n" + uri);
 
 			if(uri.contains("/rest/json/searchImage")){
+				System.out.println("rest가 로그인첵 인터셉터로 갔다.");
 				return true;
 			}
 

@@ -9,10 +9,12 @@ import myshop12.com.model2.mvc.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 //==> 회원관리 RestController
@@ -43,6 +45,13 @@ public class UserRestController {
 //
 //		return null;
 //	}
+	@RequestMapping(value = "json/checkSession" , method = RequestMethod.GET)
+	public ResponseEntity<?> checkSession(HttpSession session) throws Exception{
+		System.out.println("/user/json/checkSession : GET");
+		return Optional.ofNullable(session.getAttribute("user"))
+				.map((user)-> {return ResponseEntity.ok().body(user);})
+				.orElseGet(()->ResponseEntity.notFound().build());
+	}
 
 	@RequestMapping(value="json/addUser",method = RequestMethod.POST)
 	public Map<String,Object> addUser(@RequestBody User user) throws Exception{
@@ -60,9 +69,7 @@ public class UserRestController {
 
 	@RequestMapping( value="json/getUser/{userId}", method=RequestMethod.GET )
 	public User getUser( @PathVariable String userId ) throws Exception{
-
 		System.out.println("/user/json/getUser : GET");
-
 		//Business Logic
 		return userService.getUser(userId);
 	}
@@ -117,19 +124,24 @@ public class UserRestController {
 	//컨트롤러가 데이터를 바인딩하고, 세션을 세팅해주고, 뷰는 건내주지 않아.
 	//클라는 데이터만 받아. 그 데이터를 가지고, 자기의 UI에 네비게이션을 잘 하겠지.
 	@RequestMapping( value="json/login", method=RequestMethod.POST )
-	public User login(	@RequestBody User user,
+	public ResponseEntity<User> login(	@RequestBody User user,
 						  HttpSession session ) throws Exception{
-
 		System.out.println("/user/json/login : POST");
 		//Business Logic
 		System.out.println("::"+user);
-		User dbUser=userService.getUser(user.getUserId());
 
-		if( user.getPassword().equals(dbUser.getPassword())){
-			session.setAttribute("user", dbUser);
+		if (user == null || user.getPassword() == null) {
+			// 유저 정보가 없거나 패스워드가 누락되었을 때 400 Bad Request 반환
+			return ResponseEntity.badRequest().build();
 		}
 
-		return dbUser;
+		Optional<User> dbUser=Optional.ofNullable(userService.getUser(user.getUserId()));
+
+		return dbUser.filter(u->u.getPassword().equals(user.getPassword()))
+				.map(u-> {
+					session.setAttribute("user",user);
+					return ResponseEntity.ok().body(u);})
+				.orElseGet(() -> ResponseEntity.notFound().build()); // 사용자를 찾을 수 없을 때 404 Not Found 반환
 	}//모델어트리뷰트는 바인딩해주고, 데이터를 스콥에 담아줘. 그런데 클라는 스콥이란 개념이 없어서
 	//json으로 데이터를 전달해줘야해.
 
