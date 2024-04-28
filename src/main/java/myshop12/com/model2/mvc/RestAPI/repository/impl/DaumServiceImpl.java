@@ -1,7 +1,7 @@
 package myshop12.com.model2.mvc.RestAPI.repository.impl;
 
 
-import myshop12.com.model2.mvc.RestAPI.repository.DaumSearchService;
+import myshop12.com.model2.mvc.RestAPI.repository.DaumService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.client.reactive.ClientHttpConnector;
@@ -11,14 +11,15 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 import reactor.netty.http.client.HttpClient;
 
-@Service("daumSearchServiceImpl")
-public class DaumSearchServiceImpl implements DaumSearchService {
+@Service("daumServiceImpl")
+public class DaumServiceImpl implements DaumService {
+
     private final WebClient webClient;
 
     @Value("${daum.api.key}")
     private String apiKey;
 
-    public DaumSearchServiceImpl() {
+    public DaumServiceImpl() {
         HttpClient httpClient = HttpClient.create();
         ClientHttpConnector connector = new ReactorClientHttpConnector(httpClient);
         this.webClient = WebClient.builder().clientConnector(connector).baseUrl("https://dapi.kakao.com").build();

@@ -13,7 +13,7 @@ public class PropertySourcesConfig {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
         configurer.setLocations(
                 new ClassPathResource("config/common.properties"),
-                new ClassPathResource("config/daum.properties"),
+                new ClassPathResource("config/apiKey.properties"),
                 new ClassPathResource("config/jdbc.properties"),
                 new ClassPathResource("config/log4j.properties")
         );

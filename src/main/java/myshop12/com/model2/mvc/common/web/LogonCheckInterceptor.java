@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 //public class LogonCheckInterceptor extends HandlerInterceptorAdapter { 디프리케잇에서 이제 이거 쓰지도 못함.
-@Component
+//@Component
 public class LogonCheckInterceptor implements HandlerInterceptor {
 	///Field
 	
