@@ -168,9 +168,13 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "json/listUser")
-    public Map<String, Object> listUser(@RequestBody Search search) throws Exception {
+    public Map<String, Object> listUser(@RequestBody(required = false) Search search) throws Exception {
 
         System.out.println("/user/json/listUser : GET / POST");
+        System.out.println("search :: " + search);
+		if(search == null) {
+			search = new Search();
+		}
 
         if (search.getCurrentPage() == 0) {
             search.setCurrentPage(1);

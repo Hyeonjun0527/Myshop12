@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -207,23 +209,26 @@ public class ProductRestController {
     }//end of likeProduct
 
     //클라-searchBoundFirst,searchBoundEnd,search,menu,products,page
-    @RequestMapping("/listProduct")//작동됨
-    public ResponseEntity<?> listProduct(@ModelAttribute(value = "search") Search search,
-                                         @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
-                                         @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
-                                         @RequestParam(value = "menu", required = false) String menu) throws Exception {
+    @RequestMapping("listProduct")
+    public ResponseEntity<Map <String,Object>> listProduct(@RequestBody(required = false) Search search,
+                                        @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
+                                        @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
+                                        @RequestParam(value = "menu", required = false) String menu,
+                                        //image는 이미지로 볼거냐 이거다. 이미지파일 보내는거 아님.
+                                        @RequestParam(value = "image", required = false) String image
+                                        ) throws Exception {
         System.out.println("/listProduct이 시작됩니다..");
         System.out.println("searchBound :: " + searchBoundFirst + " " + searchBoundEnd);
         System.out.println("searchType :: " + search.getSearchType());
 //        if(search.getSearchType() == null) {
 //            search.setSearchType("1");
 //        }
-        //하나라도 널이면 널 아니게...
+
         if (searchBoundFirst == null && searchBoundEnd == null) {
             searchBoundFirst = 0;
             searchBoundEnd = 0;
         }
-        //바인딩 : 클라-searchBoundFirst, searchBoundEnd가 뭐라도 있으면 search도메인
+        //바인딩 : 클라-searchBoundFirst, searchBoundEnd > search도메인
         if (!(searchBoundFirst == 0) || !(searchBoundEnd == 0)) {
             search.setSearchBoundFirst(searchBoundFirst);
             search.setSearchBoundEnd(searchBoundEnd);
@@ -232,7 +237,7 @@ public class ProductRestController {
         }
 
 
-        //바인딩 : 클라-currentPage -> search도메인 -> page도메인
+        //바인딩 : 클라-currentPage > search도메인 > page도메인
         int currentPage = 1;
         //경로 1,2,3,4로 들어왔을경우
         if (search.getCurrentPage() != 0) {
@@ -241,8 +246,25 @@ public class ProductRestController {
 
         search.setCurrentPage(currentPage);
         search.setPageSize(pageSize);
-
+        System.out.println("search");
+        System.out.println(search);
         Map<String, Object> productMap = productService.getProductList(search);//Like와 다른 부분
+        List<Product> list = (List<Product>) productMap.get("list");
+        List<List<String>> fileNameListList = new ArrayList<>();
+
+        Optional.ofNullable(image)
+                .filter(img -> img.equals("ok"))
+                .ifPresent(img -> {
+                    Optional.ofNullable(list)//Optional<List<Product>>
+                            .ifPresent(lst -> lst.stream()
+                                    .flatMap(product -> Optional.ofNullable(product.getFileName())
+                                            .map(fileName -> fileName.split(","))
+                                            .stream())
+                                    .forEach(array -> Optional.ofNullable(fileNameListList)
+                                            .ifPresent(fListList -> fListList.add(Arrays.asList(array)))));
+
+                    fileNameListList.forEach(fileNameList -> System.out.println("fileNameList :: " + fileNameList));
+                });
 
         Page page = new Page(
                 currentPage,
@@ -251,38 +273,34 @@ public class ProductRestController {
                 pageSize);
 
         System.out.println("ListProductAction ::" + page);
-        System.out.println("products :: " + productMap.get("list"));
+        System.out.println("list :: " + list);
         System.out.println("search :: " + search);
 
+
         //Model 과 View 연결
+        //model.addAttribute("products", products);
         //model.addAttribute("search", search);
-//        model.addAttribute("totalCount", productMap.get("totalCount"));
-//        model.addAttribute("list", productMap.get("list"));
-//        model.addAttribute("resultPage", page);
-//        model.addAttribute("menu", menu);
 
         Map<String, Object> map = new HashMap<>();
-        map.put("products", productMap.get("list"));
-        map.put("totalCount", productMap.get("totalCount"));
+
+
+        map.put("search",search);
+//        map.put("totalCount", productMap.get("totalCount"));
+        map.put("list", list);
         map.put("resultPage", page);
         map.put("menu", menu);
-        map.put("search", search);
+
+        Optional.ofNullable(image)
+                .filter(img -> img.equals("ok"))
+                .ifPresent(img -> map.put("fileNameListList", fileNameListList));
 
 
         System.out.println("/listProduct이 끝났습니다..");
 
-        //네비게이션
-        if (menu != null) {
-            System.out.println("forward:/product/listProduct.jsp" + "합니다.");
-            map.put("navigation", "forward:/product/listProduct.jsp");
-        } else {
-            System.out.println("forward:/product/getProduct.jsp" + "합니다.");
-            map.put("navigation", "forward:/product/getProduct.jsp");
-        }//end of else
-
         return ResponseEntity.status(HttpStatus.OK).body(map);
+        //end of else
     }//end of listProduct
-    @RequestMapping("/listProductImg")//작동됨
+    @RequestMapping("json/listProductImg")//작동됨
     public ResponseEntity<?> listProductImg(@RequestBody Search search,
                                          @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                                          @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,
