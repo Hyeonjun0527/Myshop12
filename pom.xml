@@ -18,45 +18,51 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
-<!--        스프링 액츄에이터-->
+        <!--        스프링 액츄에이터-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
-<!--        스프링부트 스타터 jpa-->
+        <!--        스프링부트 스타터 jpa-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-<!--        스프링부트 스타터 웹-->
+        <!--        스프링부트 스타터 웹-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
-<!--        마이배티스 스프링-->
+        <!--        마이배티스 스프링-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.3.0</version>
         </dependency>
-<!--       스프링부트 devTool-->
+        <!--       스프링부트 devTool-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
-<!--        스프링부트 웹플럭스 : 웹플러스 , 리액터 네티 있음 -->
+        <!--        스프링부트 웹플럭스 : 웹플러스 , 리액터 네티 있음 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webflux</artifactId>
         </dependency>
-<!--        리액트 코어 : WebClient,Mono,HttpClient 있음-->
+        <!--        리액트 코어 : WebClient,Mono,HttpClient 있음-->
         <dependency>
             <groupId>io.projectreactor</groupId>
             <artifactId>reactor-core</artifactId>
         </dependency>
-<!--        Oracle Driver-->
+        <!--        Oracle Driver-->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
@@ -68,13 +74,13 @@
             <artifactId>hibernate-core</artifactId>
             <version>6.0.2.Final</version>
         </dependency>
-<!--        콘피규레이션 프로세서-->
+        <!--        콘피규레이션 프로세서-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        롬복-->
+        <!--        롬복-->
         <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -82,19 +88,19 @@
             <version>1.18.32</version>
             <scope>provided</scope>
         </dependency>
-<!--        스프링부트 스타터-->
+        <!--        스프링부트 스타터-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
         </dependency>
-<!--        스프링부트 스타터-->
+        <!--        스프링부트 스타터-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        마이배티스 스프링-->
+        <!--        마이배티스 스프링-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter-test</artifactId>
@@ -104,7 +110,7 @@
         <!-- dependcy for JSTL -->
         <!-- To use in jsp, use this line -->
         <!-- <%@ taglib prefix="c" uri="jakarta.tags.core" %> -->
-            <!-- 기존 의존성 생략 -->
+        <!-- 기존 의존성 생략 -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
