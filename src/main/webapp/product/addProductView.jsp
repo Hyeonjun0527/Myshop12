@@ -15,67 +15,9 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/css/font.css" type="text/css">
 
-	<script type="text/javascript" src="../js/calendar.js"/>
+	<script type="text/javascript" src="../js/calendar.js"></script>
 
-	<script type="text/javascript">
 
-		function fncAddProduct() {
-			//Form 유효성 검증
-			// var name = document.detailForm.prodName.value;
-			// var detail = document.detailForm.prodDetail.value;
-			// var manuDate = document.detailForm.manuDate.value;
-			// var price = document.detailForm.price.value;
-			var name = $("input[name='prodName']").val();
-			var detail = $("input[name='prodDetail']").val();
-			var manuDate = $("input[name='manuDate']").val();
-			var price = $("input[name='price']").val();
-
-			if (name == null || name.length < 1) {
-				alert("상품명은 반드시 입력하여야 합니다.");
-				return;
-			}
-			if (detail == null || detail.length < 1) {
-				alert("상품상세정보는 반드시 입력하여야 합니다.");
-				return;
-			}
-			if (manuDate == null || manuDate.length < 1) {
-				alert("제조일자는 반드시 입력하셔야 합니다.");
-				return;
-			}
-			if (price == null || price.length < 1) {
-				alert("가격은 반드시 입력하셔야 합니다.");
-				return;
-			}
-
-			$("form[name='detailForm']")
-					.attr("method", "post")
-					.attr("action", '/product/addProduct')
-					.attr("enctype", 'multipart/form-data')
-					.submit();
-			// document.detailForm.action='/product/addProduct';//리퀘스트를 addProduct한테 줌
-			// document.detailForm.submit();
-		}//end of fncAddProduct()
-
-		function resetData() {
-			$("form[name='detailForm']")
-					[0]
-					.reset();
-			// document.detailForm.reset(); 일반객체로 만들어야 reset() 사용가능
-		}//end of resetData()
-
-		$(function () {
-			$('.add').bind('click', function () {
-				fncAddProduct();
-			});
-			$('.cancel').bind('click', function () {
-				resetData();
-			});
-			$('.back').bind('click', function () {
-				self.location.href = '/';
-			});
-		});//end of ready
-
-	</script>
 </head>
 
 <body>
@@ -148,5 +90,69 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+	$(function () {
+
+		console.log("실행은돼");
+		function fncAddProduct() {
+			//Form 유효성 검증
+			// var name = document.detailForm.prodName.value;
+			// var detail = document.detailForm.prodDetail.value;
+			// var manuDate = document.detailForm.manuDate.value;
+			// var price = document.detailForm.price.value;
+			var name = $("input[name='prodName']").val();
+			var detail = $("input[name='prodDetail']").val();
+			var manuDate = $("input[name='manuDate']").val();
+			var price = $("input[name='price']").val();
+
+			if (name == null || name.length < 1) {
+				alert("상품명은 반드시 입력하여야 합니다.");
+				return;
+			}
+			if (detail == null || detail.length < 1) {
+				alert("상품상세정보는 반드시 입력하여야 합니다.");
+				return;
+			}
+			if (manuDate == null || manuDate.length < 1) {
+				alert("제조일자는 반드시 입력하셔야 합니다.");
+				return;
+			}
+			if (price == null || price.length < 1) {
+				alert("가격은 반드시 입력하셔야 합니다.");
+				return;
+			}
+
+			$("form[name='detailForm']")
+					.attr("method", "post")
+					.attr("action", '/product/addProduct')
+					.attr("enctype", 'multipart/form-data')
+					.submit();
+			console.log("submit");
+			// document.detailForm.action='/product/addProduct';//리퀘스트를 addProduct한테 줌
+			// document.detailForm.submit();
+		}//end of fncAddProduct()
+
+		function resetData() {
+			$("form[name='detailForm']")
+					[0]
+					.reset();
+			// document.detailForm.reset(); 일반객체로 만들어야 reset() 사용가능
+		}//end of resetData()
+
+
+
+		$('.add').on('click', function () {
+			fncAddProduct();
+		});
+		$('.cancel').on('click', function () {
+			resetData();
+			console.log("클릭감지 cancel");
+		});
+		$('.back').on('click', function () {
+			history(-1);
+			console.log("클릭감지 back");
+		});
+	});//end of ready
+</script>
 </body>
 </html>

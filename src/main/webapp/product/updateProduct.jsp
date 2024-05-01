@@ -6,10 +6,27 @@
 <html>
 <head>
     <title>상품정보수정</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
+    <%--    부트스트랩--%>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="//code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <%-- 부트스트랩 Dropdown Hover CSS JS--%>
+    <link href="/css/animate.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-dropdownhover.min.css" rel="stylesheet">
+    <script src="/js/bootstrap-dropdownhover.min.js"></script>
+
+    <%--    사용자--%>
+    <link rel="stylesheet" href="/css/font.css" type="text/css">
 
     <script type="text/javascript">
         $(document).ready(function () {
+
+
+
             function fncUpdateProduct() {
                 console.log("Here");
 
@@ -19,9 +36,9 @@
                 // var manuDate = document.detailForm.manuDate.value;
                 // var price = document.detailForm.price.value;
                 var name = $("form[name='detailForm'] input[name='prodName']").val();
-                var detail = $("form[name='detailForm']input[name='prodDetail']").val();
-                var manuDate = $("form[name='detailForm']input[name='manuDate']").val();
-                var price = $("form[name='detailForm']input[name='price']").val();
+                var detail = $("form[name='detailForm'] input[name='prodDetail']").val();
+                var manuDate = $("form[name='detailForm'] input[name='manuDate']").val();
+                var price = $("form[name='detailForm'] input[name='price']").val();
                 if (name == null || name.length < 1) {
                     alert("상품명은 반드시 입력하여야 합니다.");
                     return;
@@ -61,139 +78,69 @@
     </script>
 </head>
 
-<body bgcolor="#ffffff" text="#000000">
+<body>
+<div class="container default-font">
+    <form name="detailForm">
+        <input type="hidden" name="prodNo" value="${requestScope.product.prodNo}">
 
-<form name="detailForm">
+        <div class="page-header">
+            <h3 class="text-info">상품수정</h3>
+        </div>
 
-    <input type="hidden" name="prodNo" value="${requestScope.product.prodNo}">
+        <div class="row">
+            <div class="col-xs-4 col-md-2"><strong>상품명</strong></div>
+            <div class="col-xs-8 col-md-4">
+                <input type="text" name="prodName" class="form-control" value="${requestScope.product.prodName}" maxlength="20">
+            </div>
+        </div>
 
-    <table width="100%" height="37" border="0" cellpadding="0" cellspacing="0">
-        <tr>
-            <td width="15" height="37">
-                <img src="/images/ct_ttl_img01.gif" width="15" height="37"/>
-            </td>
-            <td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="93%" class="ct_ttl01">상품수정</td>
-                        <td width="20%" align="right">&nbsp;</td>
-                    </tr>
-                </table>
-            </td>
-            <td width="12" height="37">
-                <img src="/images/ct_ttl_img03.gif" width="12" height="37"/>
-            </td>
-        </tr>
-    </table>
+        <hr/>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 13px;">
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-        <tr>
-            <td width="104" class="ct_write">
-                상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-            </td>
-            <td bgcolor="D6D6D6" width="1"></td>
-            <td class="ct_write01">
-                <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="105">
-                            <input type="text" name="prodName" class="ct_input_g"
-                                   style="width: 100px; height: 19px" maxLength="20"
-                                   value="${requestScope.product.prodName}">
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-        <tr>
-            <td width="104" class="ct_write">
-                상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-            </td>
-            <td bgcolor="D6D6D6" width="1"></td>
-            <td class="ct_write01">
-                <input type="text" name="prodDetail" value="${requestScope.product.prodDetail}" class="ct_input_g"
-                       style="width: 100px; height: 19px" maxLength="10" minLength="6">
-            </td>
-        </tr>
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-        <tr>
-            <td width="104" class="ct_write">
-                제조일자 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-            </td>
-            <td bgcolor="D6D6D6" width="1"></td>
-            <td class="ct_write01">
-                <input type="text" readonly="readonly" name="manuDate" value="${requestScope.product.manuDate}"
-                       class="ct_input_g" style="width: 100px; height: 19px" maxLength="10" minLength="6">&nbsp;
+        <div class="row">
+            <div class="col-xs-4 col-md-2"><strong>상품상세정보</strong></div>
+            <div class="col-xs-8 col-md-4">
+                <input type="text" name="prodDetail" class="form-control" value="${requestScope.product.prodDetail}" maxlength="50">
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-xs-4 col-md-2"><strong>제조일자</strong></div>
+            <div class="col-xs-8 col-md-4">
+                <input type="text" name="manuDate" class="form-control" value="${requestScope.product.manuDate}" readonly>
                 <img src="../images/ct_icon_date.gif" width="15" height="15" data-calendar/>
-            </td>
-        </tr>
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-        <tr>
-            <td width="104" class="ct_write">
-                가격 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
-            </td>
-            <td bgcolor="D6D6D6" width="1"></td>
-            <td class="ct_write01">
-                <input type="text" name="price" value="${requestScope.product.price}"
-                       class="ct_input_g" style="width: 100px; height: 19px" maxLength="50"/>&nbsp;원
-            </td>
-        </tr>
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-        <tr>
-            <td width="104" class="ct_write">상품이미지</td>
-            <td bgcolor="D6D6D6" width="1"></td>
-            <td class="ct_write01">
-                <input type="file" name="fileList" multiple class="ct_input_g"
-                       style="width: 200px; height: 19px" maxLength="13"/>
-            </td>
-        </tr>
-        <tr>
-            <td height="1" colspan="3" bgcolor="D6D6D6"></td>
-        </tr>
-    </table>
+            </div>
+        </div>
 
-    <table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-top: 10px;">
-        <tr>
-            <td width="53%"></td>
-            <td align="right">
-                <table border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td width="17" height="23">
-                            <img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-                        </td>
-                        <button type="button" data-update>
-                            수정
-                        </button>
-                        <td width="14" height="23">
-                            <img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-                        </td>
-                        <td width="30"></td>
-                        <td width="17" height="23">
-                            <img src="/images/ct_btnbg01.gif" width="17" height="23"/>
-                        </td>
-                        <button type="button" data-cancel>
-                            취소
-                        </button>
-                        <td width="14" height="23">
-                            <img src="/images/ct_btnbg03.gif" width="14" height="23"/>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
-    </table>
-</form>
+        <hr/>
+
+        <div class="row">
+            <div class="col-xs-4 col-md-2"><strong>가격</strong></div>
+            <div class="col-xs-8 col-md-4">
+                <input type="text" name="price" class="form-control" value="${requestScope.product.price}" maxlength="10">&nbsp;원
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-xs-4 col-md-2"><strong>상품이미지</strong></div>
+            <div class="col-xs-8 col-md-4">
+                <input	type="file" name="fileList" multiple class="form-control" id="fileList"/>
+            </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+            <div class="col-sm-offset-4 col-sm-4 text-center">
+                <button type="button" class="btn btn-primary" data-update>수정</button>
+                <button type="button" class="btn btn-default" data-cancel>취소</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 </body>
 </html>
