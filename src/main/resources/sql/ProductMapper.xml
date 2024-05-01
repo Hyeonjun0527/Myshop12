@@ -23,7 +23,7 @@
         INSERT
         INTO product (prod_no, prod_name, prod_detail, manufacture_day, price, image_file, reg_date, STOCK_QUANTITY)
         VALUES (seq_product_prod_no.nextval, #{prodName}, #{prodDetail}, #{manuDate}, #{price}, #{fileName}, sysdate,
-                #{stockQuantity}
+                #{stockQuantity})
     </insert>
 
     <!-- SQL : SELECT ONE -->

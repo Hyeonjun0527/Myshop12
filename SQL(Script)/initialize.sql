@@ -43,7 +43,7 @@ CREATE TABLE product (
 	prod_no 						NUMBER 				NOT NULL,
 	prod_name 				VARCHAR2(100) 	NOT NULL,
 	prod_detail 				VARCHAR2(200),
-	manufacture_day		VARCHAR2(8),
+	manufacture_day		VARCHAR2(12),
 	price 							NUMBER(10),
 	image_file 					VARCHAR2(100),
 	reg_date 					DATE,

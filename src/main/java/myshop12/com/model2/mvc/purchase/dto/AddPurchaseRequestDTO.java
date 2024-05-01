@@ -26,7 +26,8 @@ public class AddPurchaseRequestDTO {//얘는 하나만 구매하는 경우다.
     private String tranCode;
     private int totalPrice;//총가격
     private List<PurchaseDetail> purchaseDetailList;//
-    private List<Integer> typeCountList;//구매 개수
+    private List<Integer> typeCountList;//물건당 구매수량
+    private List<Integer> prodNoList;//
 
     public void calculateTotalPrice(){
         for (PurchaseDetail purchaseDetail : purchaseDetailList) {

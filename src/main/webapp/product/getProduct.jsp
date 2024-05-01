@@ -158,7 +158,17 @@ Product productVO=(Product)request.getAttribute("productVO");
 <%--</div>--%>
 <script type="text/javascript">
 
+    let time = "";
+
     $(document).ready(function () {
+
+        time = new Date().getTime();
+
+        $("img").each(function () {
+            let src = $(this).attr('src');
+            $(this).attr('src', src + "?time=" +time);
+        });
+
         $("button.confirm").bind('click', function () {
             self.location = "/product/listProduct?menu=manage";
         });

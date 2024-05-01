@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
+import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
@@ -449,8 +451,55 @@ public class ProductController {
 
     public String getProductFileName(MultipartFile file) throws Exception{;
 
-        String uploadDir = "C:/Users/osuma/git/Myshop/Myshop08/src/main/webapp/images/uploadFiles/";
+        String osName = System.getProperty("os.name").toLowerCase();
+        String uploadDir;
+        System.out.println("osName :: " + osName);
+
+        ClassLoader classLoader = ProductController.class.getClassLoader();
+
+        // getResource() 메소드를 사용하여 루트 경로를 얻습니다.
+        // "" (빈 문자열)은 클래스패스의 루트를 나타냅니다.
+        URL rootPath = classLoader.getResource("");
+
+        System.out.println(getClass().getClassLoader().getResource(""));
+
+        // 루트 경로를 출력합니다.
+        System.out.println("Classpath root path: " + rootPath);
+        // ExampleClass가 로드된 리소스의 URL을 얻습니다.
+        URL classLocation = ProductController.class.getResource("ProductController.class");
+
+        // 위치를 출력합니다.
+        System.out.println("ProductController is loaded from: " + classLocation);
+        //file:/C:/workSpringBoot/workspace/Myshop12/target/classes/myshop12/com/model2/mvc/product/controller/ProductController.class
+
+
+
+        // 시스템 클래스패스를 가져옵니다.
+//        String classPath = System.getProperty("java.class.path");
+
+        // 클래스패스를 출력합니다.
+//        System.out.println("Current classpath: " + classPath);
+
+        // 클래스패스를 콜론(:) 또는 세미콜론(;)을 기준으로 분리하여 개별 경로를 출력할 수 있습니다.
+//        String[] paths = classPath.split(System.getProperty("path.separator"));
+//        for (String path : paths) {
+//            System.out.println(path);
+//        }
         String fileName = file.getOriginalFilename();
+
+        if (osName.contains("windows")) {
+            uploadDir = "C://workSpringBoot/workspace/Myshop12/src/main/resources/static/images/uploadFiles/";
+//
+//            이거 하니까 자꾸 리빌드함.
+//            String uploadDir2 = classLocation.toString().replace("file:/", "");
+//            Path path2 = Paths.get(uploadDir2 + fileName);
+//            FileCopyUtils.copy(file.getBytes(), new File(path2.toString()));
+        } else {
+            // 리눅스 배포 환경에 맞는 경로 설정
+            // 예: /var/webapp/WEB-INF/classes/static/images/
+            uploadDir = "/usr/local/tomcat/webapps/ROOT/WEB-INF/classes/static/images/uploadFiles/";
+
+        }
 
 
         System.out.println("uploadDir :: "+uploadDir);
@@ -458,7 +507,14 @@ public class ProductController {
 
         Path path = Paths.get(uploadDir + fileName);
 
+
+        // 디렉토리가 존재하지 않는 경우 생성
+        if (!Files.exists(path.getParent())) {
+            Files.createDirectories(path.getParent());
+        }
+
         FileCopyUtils.copy(file.getBytes(), new File(path.toString()));
+
 //      Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
         return fileName;

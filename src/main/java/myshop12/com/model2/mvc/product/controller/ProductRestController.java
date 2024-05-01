@@ -95,15 +95,15 @@ public class ProductRestController {
 
     }//end of addProduct
 
-    @PostMapping("getProduct")//작동됨
+    @RequestMapping("getProduct/{prodNo}")//작동됨
     public ResponseEntity<?> getProduct(HttpServletRequest request,
                                         HttpServletResponse response,
-                                        @RequestBody Product product,
+                                        @PathVariable String prodNo,
                                         @RequestParam(value = "menu", required = false) String menu) throws Exception {
 
         System.out.println("/getProduct이 시작됩니다..");
         //Business Logic
-        product = productService.getProduct(product.getProdNo());
+        Product product = productService.getProduct(Integer.parseInt(prodNo));
         //Model 과 View 연결
         // 메서드내에서 참조변수에 도메인을 재할당해버린 경우에는
         // ModelAttribute가 인식을 하지 못한다.
@@ -121,13 +121,14 @@ public class ProductRestController {
         //CookieUtil.addValue(request, response, "history", String.valueOf(product.getProdNo()));
 
         System.out.println("/getProduct이 끝났습니다..");
-
-        if (menu.equals("manage")) {
-            System.out.println("forward:/updateProduct.jsp" + "합니다.");
-            map.put("navigation", "forward:/product/updateProduct.jsp");
-        } else {//search, ok
-            map.put("navigation", "forward:/product/getProduct.jsp");
-        }//end of else
+        if(menu!=null) {
+            if (menu.equals("manage")) {
+                System.out.println("forward:/updateProduct.jsp" + "합니다.");
+                map.put("navigation", "forward:/product/updateProduct.jsp");
+            } else {//search, ok
+                map.put("navigation", "forward:/product/getProduct.jsp");
+            }//end of else
+        }
         return ResponseEntity.status(HttpStatus.OK).body(map);
     }//end of getProduct
 
@@ -300,7 +301,7 @@ public class ProductRestController {
         return ResponseEntity.status(HttpStatus.OK).body(map);
         //end of else
     }//end of listProduct
-    @RequestMapping("json/listProductImg")//작동됨
+    @RequestMapping("listProductImg")//작동됨
     public ResponseEntity<?> listProductImg(@RequestBody Search search,
                                          @RequestParam(value = "searchBoundFirst", required = false) Integer searchBoundFirst,
                                          @RequestParam(value = "searchBoundEnd", required = false) Integer searchBoundEnd,

@@ -51,11 +51,11 @@ public class UserRestController {
         System.out.println("/user/json/checkSession : GET");
         return Optional.ofNullable(session.getAttribute("user"))
                 .map((user) -> {
-                    System.out.println("세션에 담긴 유저정보 user :: " + user);
+                    System.out.println("세션에서 꺼낸 유저정보 user :: " + user);
                     return ResponseEntity.ok().body(Map.of("user",user));
                 })
                 .orElseGet(() -> {
-                    System.out.println("세션에 담긴 유저정보 없음");
+                    System.out.println("세션에서 꺼낼 유저정보 없음");
                     return ResponseEntity.noContent().build();
                 });
     }
@@ -146,8 +146,8 @@ public class UserRestController {
 
         return dbUser.filter(u -> u.getPassword().equals(user.getPassword()))
                 .map(u -> {
-                    System.out.println("json/login :: 세션에 담을 유저정보 user :: " + u);
                     session.setAttribute("user", u);
+                    System.out.println("json/login :: 세션에 담긴 유저정보 user :: " + u);
                     return ResponseEntity.ok().body(u);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build()); // 사용자를 찾을 수 없을 때 404 Not Found 반환

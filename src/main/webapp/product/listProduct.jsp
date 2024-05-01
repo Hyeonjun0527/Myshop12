@@ -51,6 +51,8 @@
     let type = '${search.searchType}';//없으면 정말 아무것도 없는 공백이 됨.''가 됨
     let searchBoundFirst = '${search.searchBoundFirst}';//'0'이 됨
     let searchBoundEnd = '${search.searchBoundEnd}';
+    let user = '${user}';
+    console.log('jsp에서 user', user);
 
     let menu = '${menu}';
     console.log(menu);
@@ -162,10 +164,20 @@
                 <c:set var="i" value="${i+1 }"/>
                 <tr>
                     <td align="center">${i}</td>
-                    <c:if test="${!(product.proTranCode=='a')}">
+
+                    <c:if test="${(user.role!='admin'&&product.proTranCode!='a')}">
                     <td align="left">${product.prodName}</td>
                     </c:if>
-                    <c:if test="${product.proTranCode=='a'}">
+
+                    <c:if test="${user.role=='admin'}">
+                    <td align="left">
+                        <button class="btn btn-primary" type="button" data-getProduct data-prodNo="${product.prodNo}">
+                                ${product.prodName}
+                        </button>
+                    </td>
+                    </c:if>
+
+                    <c:if test="${user.role!='admin'&&product.proTranCode=='a'}">
                     <td align="left">
                         <button class="btn btn-primary" type="button" data-getProduct data-prodNo="${product.prodNo}">
                                 ${product.prodName}
