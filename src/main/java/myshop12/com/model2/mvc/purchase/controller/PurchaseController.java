@@ -107,13 +107,15 @@ public class PurchaseController {
 
 //    @RequestMapping(value = "/addPurchase", method = RequestMethod.GET)
     @GetMapping(value = "/addPurchase")
-    public ModelAndView addPurchaseView(@RequestParam("prodNo") List<Integer> prodNoList) throws Exception {
+    public ModelAndView addPurchaseView(@RequestParam("prodNo") List<Integer> prodNoList
+                                                    ) throws Exception {
         System.out.println("PurchaseController/addPurchaseView");
         System.out.println(prodNoList);
+
         Map<String, Object> model = new HashMap<>();
         List<Product> productList = new ArrayList<>();
-        for (int prodNo : prodNoList) {
-            Product product = productService.getProduct(prodNo);
+        for (int element : prodNoList) {
+            Product product = productService.getProduct(element);
             System.out.println(product);
             productList.add(product);
         }
