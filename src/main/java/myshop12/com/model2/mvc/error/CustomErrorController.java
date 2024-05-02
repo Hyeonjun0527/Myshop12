@@ -28,20 +28,20 @@ public class CustomErrorController extends BasicErrorController {
     public ModelAndView errorHtml(HttpServletRequest request, HttpServletResponse response) {
 
         HttpStatus hs = getStatus(request);
-        ModelAndView mv = new ModelAndView("500.html");
+        ModelAndView mv = new ModelAndView("500.jsp");
 
         switch (hs){
             case UNAUTHORIZED:
-                mv.setViewName("400.html");
+                mv.setViewName("400.jsp");
                 break;
             case NOT_FOUND:
-                mv.setViewName("401.html");
+                mv.setViewName("401.jsp");
                 break;
             case INTERNAL_SERVER_ERROR:
-                mv.setViewName("404.html");
+                mv.setViewName("404.jsp");
                 break;
             case SERVICE_UNAVAILABLE:
-                mv.setViewName("500.html");
+                mv.setViewName("500.jsp");
                 break;
         }
 
