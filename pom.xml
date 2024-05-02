@@ -24,10 +24,16 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <!--        스프링부트 스타터 jpa-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.hibernate.orm</groupId>-->
+<!--            <artifactId>hibernate-core</artifactId>-->
+<!--            <version>6.0.2.Final</version>-->
+<!--        </dependency>-->
         <!--        스프링부트 스타터 웹-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -81,12 +87,7 @@
             <artifactId>ojdbc11</artifactId>
             <version>21.7.0.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
-        <dependency>
-            <groupId>org.hibernate.orm</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>6.0.2.Final</version>
-        </dependency>
+
         <!--        콘피규레이션 프로세서-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
