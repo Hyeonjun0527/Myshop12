@@ -60,7 +60,7 @@
 		INSERT INTO transaction(
 			tran_no, buyer_id, payment_option, receiver_name, receiver_phone, demailaddr, dlvy_request, tran_status_code, order_date, dlvy_date,total_price
 		) VALUES (
-		seq_transaction_tran_no.nextval, #{buyer.userId}, #{paymentOption}, #{receiverName}, #{receiverPhone}, #{divyAddr}, #{divyRequest}, 'b', SYSDATE, #{divyDate},#{totalPrice}
+		seq_transaction_tran_no.nextval, #{buyer.userId}, #{paymentOption}, #{receiverName}, #{receiverPhone}, #{divyAddr}, #{divyRequest}, 'b', SYSDATE, TO_DATE(#{divyDate}, 'YYYY-MM-DD'),#{totalPrice}
 		)
 	</insert>
 
