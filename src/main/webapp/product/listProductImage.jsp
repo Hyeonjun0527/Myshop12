@@ -532,7 +532,7 @@
         // };
     });//end of ready
 </script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/variousSearch.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/variousSearchImage.js"></script>
 </body>
 
 </html>

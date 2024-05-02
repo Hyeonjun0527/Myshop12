@@ -257,7 +257,7 @@
 		DLVY_REQUEST=#{divyRequest},
 		TRAN_STATUS_CODE=#{tranCode},
 		ORDER_DATE=SYSDATE,
-		DLVY_DATE=#{divyDate},
+		DLVY_DATE=TO_DATE(#{divyDate}, 'YYYY-MM-DD'),
 		TOTAL_PRICE=#{totalPrice}
 		</set>
 		WHERE TRAN_NO=#{tranNo}
