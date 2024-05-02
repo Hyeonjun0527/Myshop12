@@ -29,9 +29,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" ></script>
 
   <!--  ///////////////////////// CSS ////////////////////////// -->
-  <link rel="stylesheet" href="/css/font.css" type="text/css">
-  <link rel="stylesheet" href="/css/skewButton.css" type="text/css">
-  <link rel="stylesheet" href="/css/index.css" type="text/css">
   <!--  ///////////////////////// JavaScript ////////////////////////// -->
 
 
@@ -169,13 +166,13 @@
   $( function() {
     //==> 추가된부분 : "addUser"  Event 연결
     $("a[href='#' ]:contains('회원가입')").on("click" , function() {
-      self.location = "/user/addUser"
+      self.location = "user/addUser"
     });
   //============= 로그인 화면이동 =============
 
     //==> 추가된부분 : "addUser"  Event 연결
     $("a[href='#' ]:contains('로 그 인')").on("click" , function() {
-      self.location = "/user/login"
+      self.location = "user/login"
     });
 
     $('#submitButton').click(function() {

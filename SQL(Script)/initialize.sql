@@ -173,7 +173,8 @@ select * from transactionDetail;
 select * from category;
 
 
-commit;
+commit
+;
 
 
 --NOT NULL에 조건을 걸어주면서 참조키를 걸면 서로 반드시 존재하는 사이가 된다. transaction 과 transactionDetail

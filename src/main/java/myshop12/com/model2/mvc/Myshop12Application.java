@@ -14,6 +14,8 @@ import org.springframework.context.annotation.FilterType;
         basePackages = {"myshop12.com.model2.mvc.**","myshop12.com.model2.mvc"},
         includeFilters = {
                 @ComponentScan.Filter(type= FilterType.ANNOTATION, classes = {
+                        //컴포넌트도
+                        org.springframework.stereotype.Component.class,
                         org.springframework.stereotype.Controller.class,
                         org.springframework.web.bind.annotation.RestController.class,
                         org.springframework.stereotype.Service.class,
@@ -26,9 +28,9 @@ import org.springframework.context.annotation.FilterType;
 //서블릿 이니셜라이저는 web.xml 역할 수행할 수 있다.
 public class Myshop12Application extends SpringBootServletInitializer {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Myshop12Application.class, args);
-    }
+        public static void main(String[] args) {
+            SpringApplication.run(Myshop12Application.class, args);
+        }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {

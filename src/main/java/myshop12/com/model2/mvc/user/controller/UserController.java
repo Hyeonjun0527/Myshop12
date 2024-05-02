@@ -21,7 +21,7 @@ import java.util.Optional;
 
 //==> 회원관리 Controller
 @Controller
-@RequestMapping("/user/*")
+@RequestMapping("user/*")
 public class UserController {
 
 	///Field
