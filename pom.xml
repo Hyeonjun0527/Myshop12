@@ -75,10 +75,11 @@
             <artifactId>reactor-core</artifactId>
         </dependency>
         <!--        Oracle Driver-->
+        <!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
         <dependency>
             <groupId>com.oracle.database.jdbc</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <scope>runtime</scope>
+            <artifactId>ojdbc11</artifactId>
+            <version>21.7.0.0</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
         <dependency>
