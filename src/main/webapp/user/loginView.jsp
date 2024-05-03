@@ -70,7 +70,7 @@
 
 <body class="default-font">
 
-<!-- ToolBar Start /////////////////////////////////////-->
+<!-- ToolBar Start   /////////////////////////////////////-->
 <div class="navbar  navbar-default">
     <div class="container">
         <a class="navbar-brand" href="/index.jsp">Model2 MVC Shop</a>

@@ -20,6 +20,8 @@ public class KakaoServiceImpl implements KakaoService {
     private final WebClient webClientApi;
     @Value("${kakao.api.key}")
     private String apiKey;
+    @Value("${my.jsp.ip}")
+    private String myIp;
 
     public KakaoServiceImpl(){
         HttpClient httpClient = HttpClient.create();
@@ -49,7 +51,7 @@ public class KakaoServiceImpl implements KakaoService {
                 .header(HttpHeaders.CONTENT_TYPE,"application/x-www-form-urlencoded;charset=utf-8")
                 .body(BodyInserters.fromFormData("grant_type","authorization_code")
                         .with("client_id",""+apiKey)
-                        .with("redirect_uri","http://127.0.0.1:8888/rest/json/loginKakao")
+                        .with("redirect_uri",myIp+"/rest/json/loginKakao")
                         .with("code",""+authorize_code))
                 .retrieve()//서버로 부터 응답 받기
                 .bodyToMono(String.class);//응답 받은 본문을 Mono<String>으로 변환

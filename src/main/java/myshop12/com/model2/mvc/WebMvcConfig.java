@@ -3,6 +3,7 @@ package myshop12.com.model2.mvc;
 import lombok.RequiredArgsConstructor;
 import myshop12.com.model2.mvc.common.web.LogonCheckInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -25,10 +26,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //                .excludePathPatterns("/user/json/login")
 //                .excludePathPatterns("/login", "/loginView", "/error"); // 로그인 관련 경로와 에러 페이지는 제외
 //    }
+
+    @Value("${my.react.ip}")
+    String myReactIp;
+//    "http://127.0.0.1:3000","http://localhost:3000",
     @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**")
-                    .allowedOrigins("http://127.0.0.1:3000","http://192.168.0.65:3000","http://localhost:3000","https://www.kubermaptes.shop")
+                    .allowedOrigins(myReactIp,"https://www.kubermaptes.shop")
                     .allowedMethods(HttpMethod.GET.name(), HttpMethod.POST.name(), HttpMethod.PUT.name(), HttpMethod.DELETE.name(), HttpMethod.OPTIONS.name())
                     .allowedHeaders("Content-Type", "Authorization", "Accept", "X-Requested-With", "Cache-Control", "Pragma", "Origin", "Referer", "User-Agent", "Sec-Ch-Ua", "Sec-Ch-Ua-Mobile", "Sec-Ch-Ua-Platform") // 허용할 헤더
                     .allowCredentials(true) // 쿠키 등의 크레덴셜 허용

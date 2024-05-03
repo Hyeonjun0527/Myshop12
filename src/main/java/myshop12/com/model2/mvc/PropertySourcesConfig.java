@@ -15,7 +15,8 @@ public class PropertySourcesConfig {
                 new ClassPathResource("config/common.properties"),
                 new ClassPathResource("config/apiKey.properties"),
                 new ClassPathResource("config/jdbc.properties"),
-                new ClassPathResource("config/log4j.properties")
+                new ClassPathResource("config/log4j.properties"),
+                new ClassPathResource("config/myIp.properties")
         );
         return configurer;
     }

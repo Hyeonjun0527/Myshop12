@@ -10,6 +10,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,9 @@ public class RestAPIController {
     private DaumService daumService;
     private KakaoService kakaoService;
     private UserService userService;
+
+    @Value("${my.react.ip}")
+    String myReactIp;
 
     @Autowired
     public void setDaumService(@Qualifier("daumServiceImpl") DaumService daumService) {
@@ -163,7 +167,7 @@ public class RestAPIController {
 
 //                    return ResponseEntity.status(HttpStatus.OK).body(result);
                     return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
-                            .header(HttpHeaders.LOCATION, "http://127.0.0.1:3000/?access_token="+ ResultJsonObject.get("access_token")+"&userId="+ userId)
+                            .header(HttpHeaders.LOCATION, myReactIp+"/?access_token="+ ResultJsonObject.get("access_token")+"&userId="+ userId)
                             .build();
                 });
 
