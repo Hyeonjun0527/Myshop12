@@ -136,13 +136,13 @@
 	<!-- table 위쪽 검색 Start /////////////////////////////////////-->
 	<div class="row">
 
-		<div class="col-md-6 text-left">
+		<div class="col-md-6 col-sm-6 text-left">
 			<p class="text-primary">
 				전체  ${resultPage.totalCount } 건수, 현재 ${resultPage.currentPage}  페이지
 			</p>
 		</div>
 
-		<div class="col-md-6 text-right">
+		<div class="col-md-6 col-sm-6 text-right">
 			<form class="form-inline" name="detailForm">
 
 				<div class="form-group">

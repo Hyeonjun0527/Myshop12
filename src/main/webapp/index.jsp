@@ -72,7 +72,7 @@
   <div class="row">
 
     <!--  Menu 구성 Start /////////////////////////////////////-->
-    <div class="col-md-3">
+    <div class="col-md-3 col-sm-3">
 
       <!--  회원관리 목록에 제목 -->
       <div class="panel panel-primary">
@@ -125,7 +125,7 @@
     <!--  Menu 구성 end /////////////////////////////////////-->
 
     <!--  Main start /////////////////////////////////////-->
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9">
       <div class="jumbotron">
         <h1>Model2 MVC Shop</h1>
         <p>로그인 후 사용가능...</p>
@@ -141,7 +141,7 @@
     </div>
     <!--  Main end /////////////////////////////////////-->
 
-    <div class="col-md-9">
+    <div class="col-md-9 col-sm-9">
       <div class="jumbotron">
 
         <div class="text-center">

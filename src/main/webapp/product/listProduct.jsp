@@ -68,11 +68,11 @@
 
     <div class="row">
         <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-        <div class="col-md-6 text-left">
+        <div class="col-md-6 col-sm-6 text-left">
             <p class="text-primary">
                 전체 ${totalCount} 건수, 현재 ${requestScope.resultPage.currentPage} 페이지
             </p>
-            <div class="col-md-12 no-padding">
+            <div class="col-md-12 col-sm-12 no-padding">
                 <button type="button" class="btn btn-primary" data-toImage>이미지로 보기<span
                         aria-hidden="true"> &nbsp&rarr;</span></button>
             </div>
@@ -80,7 +80,7 @@
 
         <form class="form-inline" name="detailForm">
 
-            <div class="col-md-6 text-right">
+            <div class="col-md-6 col-sm-6 text-right">
                 <div class="form-group">
                     <select name="searchCondition"
                             class="form-control">
@@ -120,7 +120,7 @@
 
             </div>
 
-            <div class="col-md-12 text-right">
+            <div class="col-md-12 col-sm-12 text-right">
                 <div class="form-group">
 
                     <input type="radio" id="searchType1" name="searchType" value="1"/>

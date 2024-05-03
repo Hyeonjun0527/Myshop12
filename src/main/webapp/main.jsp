@@ -45,15 +45,16 @@
 
 	<!--  아래의 내용은 http://getbootstrap.com/getting-started/  참조 -->	
    	<div class="container ">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h1>Model2MVCShop </h1>
+        <h1>포켓몬 카드 샵 </h1>
      </div>
     </div>
+		</div>
+	</div>
 
-	<!-- 참조 : http://getbootstrap.com/css/   : container part..... -->
-	<div class="container">
-  	 </div>
 
 </body>
 

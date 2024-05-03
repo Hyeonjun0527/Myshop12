@@ -28,7 +28,7 @@ function makeThumbnail(JsonData) {
 
 
             returnPage += `
-            <div class="col-sm-6 col-md-4">
+            <div class="col-sm-4 col-md-4">
             <p>No : ${No}</p>
                 <div class="thumbnail">
                     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
