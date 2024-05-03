@@ -22,11 +22,10 @@
 
 <body>
 
-<div col-sm-12>
 <form class="form-horizontal default-font" name="detailForm">
 
 	<h1>상품등록</h1>
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="prodName" class="col-sm-offset-1 col-sm-3 control-label">상품명</label>
 		<div class="col-sm-4">
 			<input type="text" id="prodName" name="prodName" class="form-control" placeholder="상품명"
@@ -41,7 +40,7 @@
 <%--		</div>--%>
 	</div>
 
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="prodDetail" class="col-sm-offset-1 col-sm-3 control-label">상품상세정보</label>
 		<div class="col-sm-4">
 			<input type="text" id="prodDetail" name="prodDetail" class="form-control" placeholder="상품상세정보"
@@ -49,7 +48,7 @@
 		</div>
 	</div>
 
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="manuDate" class="col-sm-offset-1 col-sm-3 control-label">제조일자</label>
 		<div class="col-sm-4">
 
@@ -60,7 +59,7 @@
 		</div>
 	</div>
 
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="price" class="col-sm-offset-1 col-sm-3 control-label">가격</label>
 		<div class="col-sm-4">
 			<input type="text" name="price" 	class="form-control" id="price" placeholder="숫자만 입력"
@@ -68,14 +67,14 @@
 		</div>
 	</div>
 
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="fileList" class="col-sm-offset-1 col-sm-3 control-label">상품이미지</label>
 
 		<div class="col-sm-4">
 			<input		type="file" name="fileList" multiple class="form-control" id="fileList"/>
 		</div>
 	</div>
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<label for="stockQuantity" class="col-sm-offset-1 col-sm-3 control-label">상품재고수량</label>
 
 		<div class="col-sm-4">
@@ -83,7 +82,7 @@
 		</div>
 	</div>
 
-	<div class="form-group col-sm-3">
+	<div class="form-group">
 		<div class="col-sm-offset-4  col-sm-4 text-center">
 			<button type="button" class="btn btn-primary add">등&nbsp;록</button>
 			<button type="button" class="btn btn-primary cancel">취&nbsp;소</button>
@@ -91,7 +90,6 @@
 		</div>
 	</div>
 </form>
-</div>
 <script type="text/javascript">
 	$(function () {
 

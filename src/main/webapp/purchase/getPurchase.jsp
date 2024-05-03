@@ -58,15 +58,15 @@
 		<h3 class=" text-info">다음과 같이 구매가 되었습니다.</h3>
 	</div>
 	<div class="row">
-<%--		<div class="col-xs-8 col-sm-8 col-md-4">구매번호 : ${purchase.tranNo}</div>--%>
+<%--		<div class="col-xs-8 col-md-4">구매번호 : ${purchase.tranNo}</div>--%>
 
 		<c:forEach var="purchaseDetail" items="${purchase.purchaseDetailList}">
 			<div class="mb-4">
-				<div class="col-xs-8 col-sm-8 col-md-4">구매물품번호 : ${purchaseDetail.detailNo}</div>
-				<div class="col-xs-8 col-sm-8 col-md-4">상품이름 : ${purchaseDetail.product.prodName}</div>
-				<div class="col-xs-8 col-sm-8 col-md-4">상품번호 : ${purchaseDetail.product.prodNo}</div>
-				<div class="col-xs-8 col-sm-8 col-md-4">구매한 개수 : ${purchaseDetail.typeQuantity}</div>
-				<div class="col-xs-8 col-sm-8 col-md-4">상품별 가격 : ${purchaseDetail.typePrice}</div>
+				<div class="col-xs-8 col-md-4">구매물품번호 : ${purchaseDetail.detailNo}</div>
+				<div class="col-xs-8 col-md-4">상품이름 : ${purchaseDetail.product.prodName}</div>
+				<div class="col-xs-8 col-md-4">상품번호 : ${purchaseDetail.product.prodNo}</div>
+				<div class="col-xs-8 col-md-4">구매한 개수 : ${purchaseDetail.typeQuantity}</div>
+				<div class="col-xs-8 col-md-4">상품별 가격 : ${purchaseDetail.typePrice}</div>
 			</div>
 		</c:forEach>
 	</div>
@@ -74,52 +74,52 @@
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>구매자아이디</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.buyer.userId}</div>
+		<div class="col-xs-4 col-md-2 "><strong>구매자아이디</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.buyer.userId}</div>
 	</div>
 
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>구매방법</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.paymentOption}</div>
+		<div class="col-xs-4 col-md-2 "><strong>구매방법</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.paymentOption}</div>
 	</div>
 
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>구매자이름</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.receiverName}	</div>
+		<div class="col-xs-4 col-md-2 "><strong>구매자이름</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.receiverName}	</div>
 	</div>
 
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2"><strong>구매자연락처</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.receiverPhone}</div>
+		<div class="col-xs-4 col-md-2"><strong>구매자연락처</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.receiverPhone}</div>
 	</div>
 
 	<hr/>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>구매자주소</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.divyAddr}</div>
+		<div class="col-xs-4 col-md-2 "><strong>구매자주소</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.divyAddr}</div>
 	</div>
 
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>구매요청사항</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.divyRequest}</div>
+		<div class="col-xs-4 col-md-2 "><strong>구매요청사항</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.divyRequest}</div>
 	</div>
 	<div class="row">
-		<div class="col-xs-4 col-sm-4 col-md-2 "><strong>배송희망일자</strong></div>
-		<div class="col-xs-8 col-sm-8 col-md-4">${purchase.divyDate}</div>
+		<div class="col-xs-4 col-md-2 "><strong>배송희망일자</strong></div>
+		<div class="col-xs-8 col-md-4">${purchase.divyDate}</div>
 	</div>
 
 
 
 	<hr/>
 	<div class="row">
-		<div class="col-md-12 col-sm-12 text-center ">
+		<div class="col-md-12 text-center ">
 			<button type="button" class="btn btn-primary confirm">구매취소</button>
 		</div>
 	</div>

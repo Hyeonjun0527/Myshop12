@@ -57,7 +57,7 @@
     <link href="/css/listProduct.css" rel="stylesheet" type="text/css">
 </head>
 <body class="default-font">
-
+<form class="form-inline" name="detailForm">
     <jsp:include page="/layout/toolbar.jsp"/>
     <div class="container">
         <div class="page-header text-info">
@@ -65,16 +65,13 @@
         </div>
 
         <div class="row">
-            <div class="col md-12 col-sm-12">
-            <form class="form-inline" name="detailForm">
             <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-            <div class="col-md-6 col-sm-6 text-left">
+            <div class="col-md-6 text-left">
                 <p class="text-primary">
                     전체 ${totalCount} 건수, 현재 ${requestScope.resultPage.currentPage} 페이지
                 </p>
             </div>
 
-                <div class="col-md-6 col-sm-6">
             <table class="table table-hover table-striped size-set">
                 <thead>
                 <tr>
@@ -173,7 +170,6 @@
                 </tr>
                 </c:forEach>
             </table>
-                </div>
 
             <table width="100%" border="0" cellspacing="0" cellpadding="0"
                    style="margin-top: 10px;">
@@ -187,11 +183,10 @@
                 </tr>
             </table>
             <!--  페이지 Navigator 끝 -->
-            </form>
-            </div>
+
         </div>
 	</div>
-
+</form>
 
 <script type="text/javascript">
     function fncGetList(currentPage) {

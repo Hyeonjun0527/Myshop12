@@ -56,23 +56,23 @@ Product productVO=(Product)request.getAttribute("productVO");
     </div>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2"><strong>상품번호</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.prodNo}</div>
+        <div class="col-xs-4 col-md-2"><strong>상품번호</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodNo}</div>
     </div>
 
     <hr/>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>상품명</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.prodName}</div>
+        <div class="col-xs-4 col-md-2 "><strong>상품명</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodName}</div>
     </div>
 
     <hr/>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>상품이미지</strong></div>
+        <div class="col-xs-4 col-md-2 "><strong>상품이미지</strong></div>
         <c:forEach var="fileName" items="${fileNameList}">
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-8 col-md-4">
                 <img class="max-size" src="${pageContext.request.contextPath}/images/uploadFiles/${fileName}"/>
             </div>
         </c:forEach>
@@ -82,32 +82,32 @@ Product productVO=(Product)request.getAttribute("productVO");
     <hr/>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>상품상세정보</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.prodDetail}</div>
+        <div class="col-xs-4 col-md-2 "><strong>상품상세정보</strong></div>
+        <div class="col-xs-8 col-md-4">${product.prodDetail}</div>
     </div>
 
     <hr/>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2"><strong>제조일자</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.manuDate}</div>
+        <div class="col-xs-4 col-md-2"><strong>제조일자</strong></div>
+        <div class="col-xs-8 col-md-4">${product.manuDate}</div>
     </div>
 
     <hr/>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>가격</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.price}</div>
+        <div class="col-xs-4 col-md-2 "><strong>가격</strong></div>
+        <div class="col-xs-8 col-md-4">${product.price}</div>
     </div>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>등록일자</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.regDate}</div>
+        <div class="col-xs-4 col-md-2 "><strong>등록일자</strong></div>
+        <div class="col-xs-8 col-md-4">${product.regDate}</div>
     </div>
 
     <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-2 "><strong>수량</strong></div>
-        <div class="col-xs-8 col-sm-8 col-md-4">${product.stockQuantity}</div>
+        <div class="col-xs-4 col-md-2 "><strong>수량</strong></div>
+        <div class="col-xs-8 col-md-4">${product.stockQuantity}</div>
     </div>
 
     <hr/>

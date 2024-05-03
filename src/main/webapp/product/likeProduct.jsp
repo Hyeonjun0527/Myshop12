@@ -95,7 +95,7 @@
 
     <div class="row">
         <%--이 폼태그를 전달하는 건 1,2,3,4클릭이나 검색할때만임. --%>
-        <div class="col-md-6 col-sm-6 text-left">
+        <div class="col-md-6 text-left">
             <p class="text-primary">
                 전체 ${products.size()} 건수
             </p>
@@ -155,19 +155,19 @@
     </form>
 
 </div>
-<div class="col-md-9 col-sm-9">
+<div class="col-md-9">
 </div>
-<div class="col-md-3 col-sm-3 text-left">
+<div class="col-md-3 text-left">
     <button class="btn btn-primary">
         <div style="text-align: center;" class="delete_all">
             전부 삭제하기
         </div>
     </button>
 </div>
-<div class="col-md-12 col-sm-12">
+<div class="col-md-12">
     &nbsp;
 </div>
-<div class="col-md-9 col-sm-9">
+<div class="col-md-9">
 </div>
 <c:if test="${products!=null}">
     <c:forEach var="product" items="${products}">
@@ -177,12 +177,12 @@
 </c:if>
 
 <c:if test="${pass!=false}">
-    <div class="col-md-3 col-sm-3">
+    <div class="col-md-3">
         <a href="/purchase/addPurchase?${prodNoListString}" class="btn btn-primary">모두 구매하기</a>
     </div>
 </c:if>
 <c:if test="${pass==false}">
-    <div class="col-md-3 col-sm-3">
+    <div class="col-md-3">
         <a href="#" class="btn btn-primary">재고가 없으면 구매할 수 없습니다.</a>
     </div>
 </c:if>

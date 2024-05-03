@@ -88,8 +88,8 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2"><strong>상품명</strong></div>
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-4 col-md-2"><strong>상품명</strong></div>
+            <div class="col-xs-8 col-md-4">
                 <input type="text" name="prodName" class="form-control" value="${requestScope.product.prodName}" maxlength="20">
             </div>
         </div>
@@ -97,8 +97,8 @@
         <hr/>
 
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2"><strong>상품상세정보</strong></div>
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-4 col-md-2"><strong>상품상세정보</strong></div>
+            <div class="col-xs-8 col-md-4">
                 <input type="text" name="prodDetail" class="form-control" value="${requestScope.product.prodDetail}" maxlength="50">
             </div>
         </div>
@@ -106,8 +106,8 @@
         <hr/>
 
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2"><strong>제조일자</strong></div>
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-4 col-md-2"><strong>제조일자</strong></div>
+            <div class="col-xs-8 col-md-4">
                 <input type="text" name="manuDate" class="form-control" value="${requestScope.product.manuDate}" readonly>
                 <img src="../images/ct_icon_date.gif" width="15" height="15" data-calendar/>
             </div>
@@ -116,8 +116,8 @@
         <hr/>
 
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2"><strong>가격</strong></div>
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-4 col-md-2"><strong>가격</strong></div>
+            <div class="col-xs-8 col-md-4">
                 <input type="text" name="price" class="form-control" value="${requestScope.product.price}" maxlength="10">&nbsp;원
             </div>
         </div>
@@ -125,8 +125,8 @@
         <hr/>
 
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-2"><strong>상품이미지</strong></div>
-            <div class="col-xs-8 col-sm-8 col-md-4">
+            <div class="col-xs-4 col-md-2"><strong>상품이미지</strong></div>
+            <div class="col-xs-8 col-md-4">
                 <input	type="file" name="fileList" multiple class="form-control" id="fileList"/>
             </div>
         </div>
