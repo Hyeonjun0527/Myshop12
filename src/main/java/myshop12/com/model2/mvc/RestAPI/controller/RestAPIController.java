@@ -167,7 +167,7 @@ public class RestAPIController {
 
 //                    return ResponseEntity.status(HttpStatus.OK).body(result);
                     return ResponseEntity.status(HttpStatus.PERMANENT_REDIRECT)
-                            .header(HttpHeaders.LOCATION, myReactIp+"/?access_token="+ ResultJsonObject.get("access_token")+"&userId="+ userId)
+                            .header(HttpHeaders.LOCATION, myReactIp+"?access_token="+ ResultJsonObject.get("access_token")+"&userId="+ userId)
                             .build();
                 });
 

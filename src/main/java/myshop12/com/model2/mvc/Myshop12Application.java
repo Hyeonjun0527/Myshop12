@@ -7,6 +7,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableAspectJAutoProxy
@@ -25,6 +26,7 @@ import org.springframework.context.annotation.FilterType;
                 }),
 
         })//첫번째 scan할것, 두번째 @Configuration
+@EnableJpaRepositories("myshop12.com.model2.mvc.test.Repository")
 //서블릿 이니셜라이저는 web.xml 역할 수행할 수 있다.
 public class Myshop12Application extends SpringBootServletInitializer {
 
